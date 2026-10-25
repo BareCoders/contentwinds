@@ -1,12 +1,25 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
 
-onMounted(() => {
-  // 创建 giscus 的 script 标签
+let observer: MutationObserver | null = null
+
+// 初始化 Giscus
+const initGiscus = () => {
+  const container = document.getElementById('giscus-container')
+  if (!container) return
+
+  // 清空旧内容
+  container.innerHTML = ''
+
+  // 判断当前主题 (如果你的暗色模式会在 html 标签加 class="dark")
+  const isDark = document.documentElement.classList.contains('dark')
+  
+  // 动态匹配主题：亮色用 github-light，暗色用 github-dark
+  const theme = isDark ? 'github-dark' : 'github-light'
+
   const script = document.createElement('script')
   script.src = 'https://giscus.app/client.js'
   
-  // 写入你提供的配置项
   script.setAttribute('data-repo', 'WorkSpacesPro/guestbook')
   script.setAttribute('data-repo-id', 'R_kgDOOEORuw')
   script.setAttribute('data-category', 'General')
@@ -19,26 +32,29 @@ onMounted(() => {
   script.setAttribute('data-lang', 'zh-CN')
   script.setAttribute('crossorigin', 'anonymous')
   script.async = true
+  
+  // 设置主题
+  script.setAttribute('data-theme', theme)
 
-  // 检查当前是亮色还是暗色模式，自动匹配主题（可选）
-  const isDark = document.documentElement.classList.contains('dark')
-  // 你的原配置里是 light_tritanopia，如果想自动适配，可以改成：
-  // script.setAttribute('data-theme', isDark ? 'dark' : 'light')
-  script.setAttribute('data-theme', 'light_tritanopia') 
+  container.appendChild(script)
+}
 
-  // 把 script 挂载到一个特定的 div 容器上
-  const container = document.getElementById('giscus-container')
-  if (container) {
-    container.appendChild(script)
-  }
+onMounted(() => {
+  // 首次加载
+  initGiscus()
+
+  // 监听 HTML 标签的 class 变化（监听用户点击切换暗黑模式）
+  observer = new MutationObserver(() => {
+    initGiscus()
+  })
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
 })
 
 onUnmounted(() => {
-  // 页面离开时清理，防止内存泄漏
+  // 页面销毁时移除监听，清理容器
+  if (observer) observer.disconnect()
   const container = document.getElementById('giscus-container')
-  if (container) {
-    container.innerHTML = ''
-  }
+  if (container) container.innerHTML = ''
 })
 </script>
 
