@@ -17,7 +17,10 @@ if (error.value) {
   <!-- 使用可选链 ?. 和 OR 运算符 || 作为双重保险 -->
   <h1>{{ page?.title || '首页' }}</h1>
   
+  <!-- 删掉或者注释掉这行 -->
+  <!-- 
   <NuxtLink to="/blog/hello-world">
     Go to blog post
-  </NuxtLink>
+  </NuxtLink>  -->
+  
 </template>
