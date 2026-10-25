@@ -49,7 +49,8 @@ const prevPage = () => {
 </script>
 
 <template>
-  <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-8 my-8 max-w-3xl mx-auto">
+  <!-- 把 max-w-3xl 改成了 w-full，让卡片撑满父容器的宽度 -->
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-8 my-8 w-full">
     
     <h1 class="text-3xl font-bold mb-6">博客文章</h1>
 
