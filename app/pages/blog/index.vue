@@ -1,7 +1,8 @@
 <script setup lang="ts">
 // 自动获取 content/blog 目录下的所有文章，并按日期从新到旧排序
+// 注意这里改成了 'blog' 而不是 '/blog'，防止路径匹配失败
 const { data: posts } = await useAsyncData('blog-posts', () => {
-  return queryContent('/blog').sort({ date: -1 }).find()
+  return queryContent('blog').sort({ date: -1 }).find()
 })
 </script>
 
