@@ -18,9 +18,8 @@ if (error.value) {
   <h1>{{ page?.title || '首页' }}</h1>
   
   <!-- 删掉或者注释掉这行 -->
-  <!-- 
-  <NuxtLink to="/blog/hello-world">
+<NuxtLink to="/blog/hello-world">
     Go to blog post
-  </NuxtLink>  -->
+  </NuxtLink>  
   
 </template>
