@@ -15,6 +15,9 @@ if (!page.value) {
 }
 
 useSeoMeta(page.value?.seo || {})
+
+// 👇 新增：判断当前页面路径是否以 /blog/ 开头
+const isBlogPage = computed(() => route.path.startsWith('/blog/'))
 </script>
 
 <template>
@@ -25,8 +28,8 @@ useSeoMeta(page.value?.seo || {})
       class="prose dark:prose-invert prose-pre:bg-gray-100 dark:prose-pre:bg-gray-900 max-w-none"
     />
     
-    <!-- 引入刚才写的评论组件 -->
-    <Comments />
+    <!-- 👇 加上 v-if="isBlogPage"，只有博客文章才显示评论 -->
+    <Comments v-if="isBlogPage" />
     
   </NuxtLayout>
 </template>
