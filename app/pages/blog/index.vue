@@ -1,25 +1,43 @@
 <script setup lang="ts">
-// 使用 useFetch 获取数据，并提供一个初始的默认对象
-// 这样即使接口 404 或报错，page 也不会是 undefined
-const { data: page, error } = await useFetch('/api/cms/home', {
-  default: () => ({
-    title: '默认首页标题' // 这里可以改成你想要的默认显示内容
-  })
+// 自动获取 content/blog 目录下的所有文章，并按日期从新到旧排序
+const { data: posts } = await useAsyncData('blog-posts', () => {
+  return queryContent('/blog').sort({ date: -1 }).find()
 })
-
-// 可选：在控制台打印一下错误，方便以后排查（不会影响页面显示）
-if (error.value) {
-  console.warn('获取 CMS 数据失败，已使用默认数据:', error.value)
-}
 </script>
 
 <template>
-  <!-- 使用可选链 ?. 和 OR 运算符 || 作为双重保险 -->
-  <h1>{{ page?.title || '首页' }}</h1>
-  
-  <!-- 删掉或者注释掉这行 -->
-<NuxtLink to="/blog/hello-world">
-    Go to blog post
-  </NuxtLink>  
-  
+  <!-- 外层加个带背景和圆角的卡片容器，跟首页风格保持一致 -->
+  <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-8 my-8 max-w-3xl mx-auto">
+    
+    <h1 class="text-4xl font-bold mb-8">博客文章</h1>
+
+    <!-- 如果没文章，显示提示 -->
+    <div v-if="!posts || posts.length === 0" class="text-gray-500">
+      暂时还没有文章哦~
+    </div>
+
+    <!-- 文章列表区域 -->
+    <div v-else class="space-y-6">
+      <!-- 循环渲染每一篇文章 -->
+      <div 
+        v-for="post in posts" 
+        :key="post._path" 
+        class="flex items-center justify-between border-b pb-4 last:border-0 dark:border-gray-700"
+      >
+        <!-- 左侧：标题（链接） -->
+        <NuxtLink 
+          :to="post._path" 
+          class="text-xl font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+        >
+          {{ post.title }}
+        </NuxtLink>
+        
+        <!-- 右侧：日期（自动读取 md 文件头部的 date） -->
+        <span class="text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap ml-4">
+          {{ post.date || '暂无日期' }}
+        </span>
+      </div>
+    </div>
+    
+  </div>
 </template>
