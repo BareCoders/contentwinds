@@ -18,7 +18,10 @@ useSeoMeta({
     
     <!-- 页面主体内容（flex-grow 让它撑满剩余空间） -->
     <main class="flex-grow">
-      <NuxtPage />
+      <!-- 新增了 w-[80%] mx-auto，让页面占屏幕 80% 宽并居中 -->
+      <div class="w-[80%] mx-auto">
+        <NuxtPage />
+      </div>
     </main>
     
     <!-- 底部页脚 -->
