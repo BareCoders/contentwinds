@@ -1,6 +1,7 @@
 ---
 title: Hello World
 description: 这是我的第一篇文章，欢迎来到我的博客！
+date: 2025-08-08
 ---
 
 # 欢迎来到 Hello World
