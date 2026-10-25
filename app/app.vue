@@ -8,10 +8,20 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="sm:pt-6 sm:pb-10">
+  <!-- 使用 flex 布局，让页脚始终在页面最底部 -->
+  <div class="min-h-screen flex flex-col sm:pt-6 sm:pb-10">
     <Html lang="en" />
     <NuxtLoadingIndicator />
+    
+    <!-- 顶部导航 -->
     <AppNavbar />
-    <NuxtPage />
+    
+    <!-- 页面主体内容（flex-grow 让它撑满剩余空间） -->
+    <main class="flex-grow">
+      <NuxtPage />
+    </main>
+    
+    <!-- 底部页脚 -->
+    <AppFooter />
   </div>
 </template>
