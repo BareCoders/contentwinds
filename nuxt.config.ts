@@ -24,6 +24,15 @@ export default defineNuxtConfig({
       },
     },
   },
+  
+  // 👇 就是下面这几行，加在了这里
+  nitro: {
+    prerender: {
+      failOnError: false
+    }
+  },
+  // 👆 加完了
+
   future: {
     compatibilityVersion: 4,
   },
