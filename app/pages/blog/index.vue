@@ -22,9 +22,9 @@ const sortedPosts = computed(() => {
     })
 })
 
-// ================= 分页逻辑 =================
+// ================= 分页逻辑 数字 首页显示文章数量=================
 const currentPage = ref(1)
-const pageSize = 10
+const pageSize = 12
 
 const paginatedPosts = computed(() => {
   const start = (currentPage.value - 1) * pageSize
