@@ -53,7 +53,7 @@ const handleError = () => clearError({ redirect: '/' })
 
 <style>
 /* 
-  🌟 100% 还原 Nuxt 官方 404 的背景渐变（多层径向渐变光晕）
+  🌟 1000% 还原 Nuxt 官方 404 的背景渐变（多层径向渐变光晕）
   左下薄荷绿、右下冰蓝，融合于左上和右上的纯白。
 */
 .error-page {
