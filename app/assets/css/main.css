@@ -9,8 +9,17 @@
    ========================================= */
 @theme {
   /* -----------------------------------------
+     🐈 默认主题：GitHub 官方浅色风（当前生效）
+     ----------------------------------------- */
+  --color-theme-bg: #f6f8fa;                    /* 背景：GitHub 网页最外层的极浅灰 */
+  --color-theme-card: #ffffff;                  /* 卡片：纯白（代码区/内容区） */
+  --color-theme-title: #24292f;                 /* 标题：GitHub 经典的深灰黑 */
+  --color-theme-text: #57606a;                  /* 正文：稍浅一点的灰色，看着极舒服 */
+  --color-theme-border: #d0d7de;                /* 边框线：GitHub 标志性的浅灰细线 */
+
+  /* -----------------------------------------
      💡 备选主题：冰蓝磨砂风
-     （如果想换回冰蓝风，把上面5行注释掉，取消下面5行的注释）
+     （想换回之前的冰蓝，把上面5行注释掉，取消下面5行的注释）
      ----------------------------------------- */
   /*
   --color-theme-bg: #dbeafe;
@@ -21,23 +30,14 @@
   */
 
   /* -----------------------------------------
-     ⬜ 默认主题：高级石板灰（当前生效）
+     🌙 深色模式（GitHub 官方深色风）
      ----------------------------------------- */
-  --color-theme-bg: #ff0000;
-  --color-theme-card: rgba(255, 255, 255, 0.6);
-  --color-theme-title: #0f172a;
-  --color-theme-text: #334155;
-  --color-theme-border: #cbd5e1;
-
-  /* -----------------------------------------
-     🌙 深色模式（藏青灰 GitHub 风）
-     ----------------------------------------- */
-  --color-dark-bg: #151b24;                     /* 背景：深藏青灰 */
-  --color-dark-card: rgba(30, 38, 49, 0.6);     /* 卡片：微亮磨砂感 */
-  --color-dark-title: #d1d5db;                  /* 标题：柔和亮灰 */
-  --color-dark-text: #9ca3af;                   /* 正文：中灰 */
-  --color-dark-border: #2d3748;                 /* 边框：暗灰蓝 */
-  --color-dark-link: #60a5fa;                   /* 高亮链接：亮蓝 */
+  --color-dark-bg: #0d1117;                     /* 背景：深空灰 */
+  --color-dark-card: #161b22;                   /* 卡片：稍微亮一点的深灰 */
+  --color-dark-title: #f0f6fc;                  /* 标题：亮白 */
+  --color-dark-text: #8b949e;                   /* 正文：中灰，护眼 */
+  --color-dark-border: #30363d;                 /* 边框：暗灰 */
+  --color-dark-link: #58a6ff;                   /* 高亮链接：GitHub 专属亮蓝 */
 }
 
 /* =========================================
@@ -55,12 +55,12 @@ body {
   @apply text-theme-title dark:text-dark-title;
 }
 .prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
-  @apply text-[#2563eb] dark:text-dark-link hover:text-[#1d4ed8] dark:hover:text-[#79c0ff] transition-colors;
+  @apply text-[#0969da] dark:text-dark-link hover:underline transition-all;
 }
 
 /* 代码块 */
 .prose pre {
-  @apply bg-[#e2e8f0] border border-theme-border text-theme-title;
+  @apply bg-[#f6f8fa] border border-theme-border text-theme-title;
 }
 .dark .prose pre {
   @apply bg-[#161b22] border-dark-border text-dark-text;
@@ -75,23 +75,24 @@ body {
 
 /* 卡片背景 */
 .card-glass {
-  @apply backdrop-blur-md ring-1 ring-theme-border/60 dark:ring-dark-border/60 w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)];
+  @apply backdrop-blur-md ring-1 ring-theme-border w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)];
   background-color: var(--color-theme-card);
 }
 .dark .card-glass {
+  @apply ring-dark-border;
   background-color: var(--color-dark-card);
 }
 
 /* 顶部导航栏 */
 .nav-glass {
-  @apply fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md border-b border-theme-border/80 dark:border-dark-border shadow-sm transition-all;
-  background-color: color-mix(in srgb, var(--color-theme-bg) 85%, transparent);
+  @apply fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md border-b border-theme-border dark:border-dark-border transition-all;
+  background-color: color-mix(in srgb, var(--color-theme-bg) 90%, transparent);
 }
 .dark .nav-glass {
-  background-color: color-mix(in srgb, var(--color-dark-bg) 85%, transparent);
+  background-color: color-mix(in srgb, var(--color-dark-bg) 80%, transparent);
 }
 
 /* 虚线分割线 */
 .divider-dashed {
-  @apply border-dashed border-theme-border/60 dark:border-dark-border/60;
+  @apply border-dashed border-theme-border dark:border-dark-border;
 }
