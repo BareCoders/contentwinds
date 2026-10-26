@@ -63,6 +63,7 @@ nitro: {
     failOnError: false
   }
 }
+```
 
 ### 坑四：Tailwind CSS 编译报错
 在折腾暗黑模式颜色时，试图在 `@apply` 里面直接写 `!important`，导致 Tailwind v4 编译器直接报错罢工。
