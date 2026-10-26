@@ -26,23 +26,21 @@ const tocLinks = computed(() => {
 </script>
 
 <template>
-  <!-- 
-    核心瘦身：直接调用 card-glass 即可。
-    它已经自动包含了宽度限制、居中对齐、顶部/底部间距以及撑满屏幕高度等所有样式。
-  -->
+  <!-- 核心瘦身：直接调用 card-glass 即可，宽高背景全自动适配 -->
   <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="card-glass">
     
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full">
       
       <!-- 左侧大纲：电脑端显示并吸顶，手机端隐藏 -->
-      <aside class="hidden lg:block w-48 shrink-0 sticky top-24">
+      <aside class="hidden lg:block w-56 shrink-0 sticky top-24">
         <div class="text-sm font-bold text-theme-text dark:text-dark-text mb-4 uppercase tracking-wider">目录大纲</div>
-        <div class="border-l-2 border-theme-border/50 dark:border-dark-border pl-4 space-y-2">
+        <!-- 使用主题边框颜色 -->
+        <div class="border-l-2 border-theme-border/60 dark:border-dark-border pl-4 space-y-2">
           <a 
             v-for="link in tocLinks" 
             :key="link.id"
             :href="`#${link.id}`" 
-            class="block text-theme-text hover:text-blue-600 dark:text-dark-text dark:hover:text-dark-link transition-colors py-1 text-sm" 
+            class="block text-theme-text hover:text-[#2563eb] dark:text-dark-text dark:hover:text-dark-link transition-colors py-1 text-sm" 
             :class="{ 'pl-4': link.depth === 3 }"
           >
             {{ link.text }}
