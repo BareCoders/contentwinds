@@ -27,24 +27,22 @@ const tocLinks = computed(() => {
 
 <template>
   <!-- 
-    核心修改说明：
-    1. mt-4：顶部间距再次减半，几乎贴近导航栏，紧凑感拉满。
-    2. max-w-4xl mx-auto px-4：限制卡片最大宽度为 896px（最适合阅读的宽度），并在左右留出安全的间距。
-    3. min-h-[calc(100vh-100px)]：保持卡片撑满屏幕高度。
+    核心瘦身：直接调用 card-glass 即可。
+    它已经自动包含了宽度限制、居中对齐、顶部/底部间距以及撑满屏幕高度等所有样式。
   -->
-  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)]">
+  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="card-glass">
     
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full">
       
       <!-- 左侧大纲：电脑端显示并吸顶，手机端隐藏 -->
       <aside class="hidden lg:block w-48 shrink-0 sticky top-24">
-        <div class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider">目录大纲</div>
-        <div class="border-l-2 border-blue-200/50 dark:border-gray-800 pl-4 space-y-2">
+        <div class="text-sm font-bold text-theme-text dark:text-dark-text mb-4 uppercase tracking-wider">目录大纲</div>
+        <div class="border-l-2 border-theme-border/50 dark:border-dark-border pl-4 space-y-2">
           <a 
             v-for="link in tocLinks" 
             :key="link.id"
             :href="`#${link.id}`" 
-            class="block text-gray-600 hover:text-[#2563eb] dark:text-gray-400 dark:hover:text-[#9fbcd0] transition-colors py-1 text-sm" 
+            class="block text-theme-text hover:text-blue-600 dark:text-dark-text dark:hover:text-dark-link transition-colors py-1 text-sm" 
             :class="{ 'pl-4': link.depth === 3 }"
           >
             {{ link.text }}
