@@ -24,7 +24,7 @@ const sortedPosts = computed(() => {
 
 // ================= 分页逻辑 =================
 const currentPage = ref(1)
-const pageSize = 10 // 每页显示的文章数量，你可以改成 5 或 10
+const pageSize = 10 // 每页显示的文章数量
 
 // 计算当前页应该显示哪些文章
 const paginatedPosts = computed(() => {
@@ -49,12 +49,12 @@ const prevPage = () => {
 </script>
 
 <template>
-  <!-- 核心修改：统一为磨砂半透明卡片，加上 mt-24 拉开与导航栏的距离 -->
-  <div class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)]">
+  <!-- 核心瘦身：直接调用 card-glass -->
+  <div class="card-glass">
     
-    <h1 class="text-3xl font-bold mb-6 text-[#1e293b] dark:text-white">博客文章</h1>
+    <h1 class="text-3xl font-bold mb-6 text-theme-title dark:text-dark-title">博客文章</h1>
 
-    <div v-if="!paginatedPosts || paginatedPosts.length === 0" class="text-gray-500">
+    <div v-if="!paginatedPosts || paginatedPosts.length === 0" class="text-theme-text dark:text-dark-text">
       暂时还没有文章哦~
     </div>
 
@@ -64,40 +64,40 @@ const prevPage = () => {
         <div 
           v-for="post in paginatedPosts" 
           :key="post.path" 
-          class="flex items-center justify-between py-4 border-b border-white/50 dark:border-gray-700/50 last:border-0"
+          class="flex items-center justify-between py-4 border-b divider-dashed last:border-0"
         >
-          <!-- 标题颜色调深，悬停变为宝蓝色 -->
+          <!-- 标题颜色使用主题变量 -->
           <NuxtLink 
             :to="post.path" 
-            class="text-base font-medium text-[#334155] dark:text-gray-200 hover:text-[#2563eb] dark:hover:text-blue-400 transition-colors"
+            class="text-base font-medium text-theme-title dark:text-dark-title hover:text-blue-600 dark:hover:text-dark-link transition-colors"
           >
             {{ post.title }}
           </NuxtLink>
           
-          <span class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap ml-4">
+          <span class="text-xs text-theme-text dark:text-dark-text whitespace-nowrap ml-4">
             {{ post.displayDate }}
           </span>
         </div>
       </div>
 
       <!-- 翻页按钮区域 -->
-      <div class="flex items-center justify-between mt-8 pt-4 border-t border-white/50 dark:border-gray-700/50">
+      <div class="flex items-center justify-between mt-8 pt-4 border-t divider-dashed">
         <button 
           @click="prevPage" 
           :disabled="currentPage === 1"
-          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-700/50 dark:text-gray-300 dark:hover:bg-gray-600/50 transition-colors shadow-sm"
+          class="px-4 py-2 text-sm font-medium text-theme-text bg-theme-bg rounded-lg hover:bg-theme-border disabled:opacity-50 disabled:cursor-not-allowed dark:bg-dark-card dark:text-dark-text dark:hover:bg-dark-border transition-colors shadow-sm"
         >
           上一页
         </button>
         
-        <span class="text-sm text-gray-600 dark:text-gray-400">
+        <span class="text-sm text-theme-text dark:text-dark-text">
           第 {{ currentPage }} / {{ totalPages }} 页
         </span>
 
         <button 
           @click="nextPage" 
           :disabled="currentPage === totalPages"
-          class="px-4 py-2 text-sm font-medium text-gray-700 bg-white/50 rounded-lg hover:bg-white/80 disabled:opacity-50 disabled:cursor-not-allowed dark:bg-gray-700/50 dark:text-gray-300 dark:hover:bg-gray-600/50 transition-colors shadow-sm"
+          class="px-4 py-2 text-sm font-medium text-theme-text bg-theme-bg rounded-lg hover:bg-theme-border disabled:opacity-50 disabled:cursor-not-allowed dark:bg-dark-card dark:text-dark-text dark:hover:bg-dark-border transition-colors shadow-sm"
         >
           下一页
         </button>
