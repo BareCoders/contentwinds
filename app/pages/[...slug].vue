@@ -28,16 +28,16 @@ const tocLinks = computed(() => {
 <template>
   <!-- 
     核心修改说明：
-    1. mt-8：顶部间距进一步缩小到一半，紧贴导航栏下方，不空旷。
-    2. max-w-5xl mx-auto：限制卡片最大宽度并居中，防止在超宽电脑屏幕上被拉得特别长。
-    3. min-h-[calc(100vh-100px)]：让卡片撑满屏幕高度。
+    1. mt-4：顶部间距再次减半，几乎贴近导航栏，紧凑感拉满。
+    2. max-w-4xl mx-auto px-4：限制卡片最大宽度为 896px（最适合阅读的宽度），并在左右留出安全的间距。
+    3. min-h-[calc(100vh-100px)]：保持卡片撑满屏幕高度。
   -->
-  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full max-w-5xl mx-auto p-4 sm:p-8 rounded-2xl shadow-sm mt-8 mb-8 min-h-[calc(100vh-100px)]">
+  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)]">
     
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full">
       
       <!-- 左侧大纲：电脑端显示并吸顶，手机端隐藏 -->
-      <aside class="hidden lg:block w-56 shrink-0 sticky top-24">
+      <aside class="hidden lg:block w-48 shrink-0 sticky top-24">
         <div class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider">目录大纲</div>
         <div class="border-l-2 border-blue-200/50 dark:border-gray-800 pl-4 space-y-2">
           <a 
