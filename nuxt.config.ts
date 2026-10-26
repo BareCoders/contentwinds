@@ -25,13 +25,14 @@ export default defineNuxtConfig({
     },
   },
   
-  // 👇 就是下面这几行，加在了这里
+  // 👇 核心修改：在原来的基础上加了 routes 配置
   nitro: {
     prerender: {
-      failOnError: false
+      failOnError: false,
+      routes: ['/404.html'] // 👈 加上这一行，强制生成 404 页面
     }
   },
-  // 👆 加完了
+  // 👆 修改完毕
 
   future: {
     compatibilityVersion: 4,
