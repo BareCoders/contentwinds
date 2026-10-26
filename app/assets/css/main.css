@@ -8,29 +8,36 @@
    🎨 色彩中心
    ========================================= */
 @theme {
-  /* ☀️ 浅色模式（当前默认：高级石板灰） */
-  --color-theme-bg: #f1f5f9;                    
-  --color-theme-card: rgba(255, 255, 255, 0.6); 
-  --color-theme-title: #0f172a;                 
-  --color-theme-text: #334155;                  
-  --color-theme-border: #cbd5e1;                
+  /* -----------------------------------------
+     🧊 默认主题：冰蓝磨砂风（当前生效）
+     ----------------------------------------- */
+  --color-theme-bg: #dbeafe;                    /* 背景：浅冰蓝 */
+  --color-theme-card: rgba(255, 255, 255, 0.3); /* 卡片：30% 半透明白 */
+  --color-theme-title: #1e293b;                 /* 标题：深邃蓝灰 */
+  --color-theme-text: #334155;                  /* 正文：石板灰 */
+  --color-theme-border: #bfdbfe;                /* 边框线：稍深的冰蓝（用于导航底线） */
 
-  /* 💡 浅色备选：冰蓝磨砂风（想换回冰蓝，把上面5行注释掉，把这5行的注释打开即可） */
+  /* -----------------------------------------
+     💡 备选主题：高级石板灰
+     （如果想换成纯灰风，把上面5行注释掉，取消下面5行的注释）
+     ----------------------------------------- */
   /*
-  --color-theme-bg: #dbeafe;
-  --color-theme-card: rgba(255, 255, 255, 0.3);
-  --color-theme-title: #1e293b;
+  --color-theme-bg: #f1f5f9;
+  --color-theme-card: rgba(255, 255, 255, 0.6);
+  --color-theme-title: #0f172a;
   --color-theme-text: #334155;
   --color-theme-border: #cbd5e1;
   */
 
-  /* 🌙 深色模式（GitHub 经典暗夜风） */
-  --color-dark-bg: #0d1117;                     
-  --color-dark-card: rgba(22, 27, 34, 0.8);     
-  --color-dark-title: #f0f6fc;                  
-  --color-dark-text: #c9d1d9;                   
-  --color-dark-border: #30363d;                 
-  --color-dark-link: #58a6ff;                   
+  /* -----------------------------------------
+     🌙 深色模式（藏青灰 GitHub 风）
+     ----------------------------------------- */
+  --color-dark-bg: #151b24;                     /* 背景：深藏青灰 */
+  --color-dark-card: rgba(30, 38, 49, 0.6);     /* 卡片：微亮磨砂感 */
+  --color-dark-title: #d1d5db;                  /* 标题：柔和亮灰 */
+  --color-dark-text: #9ca3af;                   /* 正文：中灰 */
+  --color-dark-border: #2d3748;                 /* 边框：暗灰蓝 */
+  --color-dark-link: #60a5fa;                   /* 高亮链接：亮蓝 */
 }
 
 /* =========================================
@@ -40,7 +47,7 @@ body {
   @apply bg-theme-bg text-theme-text dark:bg-dark-bg dark:text-dark-text;
 }
 
-/* 文章排版（去掉了 !important，改用更深的层级选择器） */
+/* 文章排版 */
 .prose {
   @apply text-theme-text dark:text-dark-text;
 }
@@ -77,11 +84,11 @@ body {
 
 /* 顶部导航栏 */
 .nav-glass {
-  @apply fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md border-b border-theme-border/50 dark:border-dark-border shadow-sm transition-all;
-  background-color: color-mix(in srgb, var(--color-theme-bg) 80%, transparent);
+  @apply fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md border-b border-theme-border/80 dark:border-dark-border shadow-sm transition-all;
+  background-color: color-mix(in srgb, var(--color-theme-bg) 85%, transparent);
 }
 .dark .nav-glass {
-  background-color: color-mix(in srgb, var(--color-dark-bg) 80%, transparent);
+  background-color: color-mix(in srgb, var(--color-dark-bg) 85%, transparent);
 }
 
 /* 虚线分割线 */
