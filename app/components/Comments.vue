@@ -51,7 +51,9 @@ onUnmounted(() => {
 
 <template>
   <!-- 调整了边框颜色，使用微透明边框与整体卡片融合 -->
-  <div class="mt-12 pt-8 border-t border-white/50 dark:border-gray-700/50">
+  
+  <div class="mt-12 pt-8 border-t border-dashed border-gray-300/60 dark:border-gray-700/60">
+    
     <h3 class="text-xl font-bold mb-4 text-[#1e293b] dark:text-white">发表评论</h3>
     <div id="giscus-container" class="relative z-10"></div>
   </div>
