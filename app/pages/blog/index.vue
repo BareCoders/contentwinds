@@ -24,21 +24,18 @@ const sortedPosts = computed(() => {
 
 // ================= 分页逻辑 =================
 const currentPage = ref(1)
-const pageSize = 10 // 每页显示的文章数量
+const pageSize = 10
 
-// 计算当前页应该显示哪些文章
 const paginatedPosts = computed(() => {
   const start = (currentPage.value - 1) * pageSize
   const end = start + pageSize
   return sortedPosts.value.slice(start, end)
 })
 
-// 计算总页数
 const totalPages = computed(() => {
   return Math.ceil(sortedPosts.value.length / pageSize)
 })
 
-// 翻页函数
 const nextPage = () => {
   if (currentPage.value < totalPages.value) currentPage.value++
 }
@@ -49,7 +46,7 @@ const prevPage = () => {
 </script>
 
 <template>
-  <!-- 核心瘦身：直接调用 card-glass -->
+  <!-- 核心瘦身：使用全局卡片组件 -->
   <div class="card-glass">
     
     <h1 class="text-3xl font-bold mb-6 text-theme-title dark:text-dark-title">博客文章</h1>
@@ -69,7 +66,7 @@ const prevPage = () => {
           <!-- 标题颜色使用主题变量 -->
           <NuxtLink 
             :to="post.path" 
-            class="text-base font-medium text-theme-title dark:text-dark-title hover:text-blue-600 dark:hover:text-dark-link transition-colors"
+            class="text-base font-medium text-theme-title dark:text-dark-title hover:text-[#2563eb] dark:hover:text-dark-link transition-colors"
           >
             {{ post.title }}
           </NuxtLink>
@@ -82,6 +79,7 @@ const prevPage = () => {
 
       <!-- 翻页按钮区域 -->
       <div class="flex items-center justify-between mt-8 pt-4 border-t divider-dashed">
+        <!-- 按钮背景使用主题颜色，深色模式下会自动变暗，绝不刺眼 -->
         <button 
           @click="prevPage" 
           :disabled="currentPage === 1"
