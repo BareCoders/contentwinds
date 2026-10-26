@@ -15,26 +15,25 @@ if (!page.value) {
 useSeoMeta(page.value?.seo || {})
 const isBlogPage = computed(() => route.path.startsWith('/blog/'))
 
-// 🛠️ 自己写一个获取大纲的方法，完全避开官方的组件
+// 自己抓取大纲
 const tocLinks = computed(() => {
-  // v3 里大纲数据通常在 body.toc.links 或者直接没有
   const links = page.value?.body?.toc?.links || page.value?.toc?.links || []
-  // 过滤掉层级为 1 的 H1 大标题，只保留 H2 和 H3
   return links.filter((link: any) => link.depth > 1)
 })
 </script>
 
 <template>
-  
+  <!-- 
+    mt-24 解决顶部遮挡问题，同时不会空太多。
+    prose-pre 颜色加深，解决代码块白底看不清字的问题。
+  -->
   <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white dark:bg-[#191a1c] ring-1 ring-gray-200 dark:ring-gray-700 w-full p-4 sm:p-8 rounded-lg shadow mt-24 mb-8">
-   
+    
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full overflow-hidden">
       
-      <!-- 左侧大纲：手机端隐藏，电脑端显示 -->
+      <!-- 左侧大纲 -->
       <aside class="hidden lg:block w-56 shrink-0 sticky top-24">
         <div class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider">目录大纲</div>
-        
-        <!-- 🛠️ 用自己手写的渲染逻辑 -->
         <div class="border-l-2 border-gray-100 dark:border-gray-800 pl-4 space-y-2">
           <a 
             v-for="link in tocLinks" 
@@ -50,10 +49,11 @@ const tocLinks = computed(() => {
 
       <!-- 右侧正文 -->
       <div class="flex-1 w-full min-w-0">
+        <!-- 这里修改了 prose-pre:bg-gray-100 为更深的颜色，修复代码块发白 -->
         <ContentRenderer
           v-if="page"
           :value="page"
-          class="prose dark:prose-invert prose-pre:bg-gray-100 dark:prose-pre:bg-gray-900 max-w-none break-words text-sm sm:text-base"
+          class="prose dark:prose-invert prose-pre:bg-gray-50 dark:prose-pre:bg-gray-800 max-w-none break-words text-sm sm:text-base"
         />
         
         <Comments v-if="isBlogPage" />
