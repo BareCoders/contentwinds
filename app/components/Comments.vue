@@ -10,8 +10,8 @@ const initGiscus = () => {
   container.innerHTML = ''
   const isDark = document.documentElement.classList.contains('dark')
   
-  // 浅色模式使用透明背景 transparent_light，深色模式使用 dark_dimmed
-  const theme = isDark ? 'dark_dimmed' : 'transparent_light'
+  // 浅色模式使用无边框主题 noborder_light，深色模式使用 dark_dimmed
+  const theme = isDark ? 'dark_dimmed' : 'noborder_light'
 
   const script = document.createElement('script')
   script.src = 'https://giscus.app/client.js'
@@ -50,8 +50,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- 调整了边框颜色，使用微透明边框与整体卡片融合 -->
-  
+  <!-- 虚线分割线 -->
   <div class="mt-12 pt-8 border-t border-dashed border-gray-300/60 dark:border-gray-700/60">
     
     <h3 class="text-xl font-bold mb-4 text-[#1e293b] dark:text-white">发表评论</h3>
