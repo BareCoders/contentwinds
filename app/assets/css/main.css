@@ -5,21 +5,17 @@
 @source "../../../content/**/*";
 
 /* =========================================
-   🎨 色彩中心（所有颜色都在这里）
+   🎨 色彩中心
    ========================================= */
 @theme {
-  /* -----------------------------------------
-     ☀️ 浅色模式（当前默认：高级石板灰）
-     ----------------------------------------- */
+  /* ☀️ 浅色模式（当前默认：高级石板灰） */
   --color-theme-bg: #f1f5f9;                    
   --color-theme-card: rgba(255, 255, 255, 0.6); 
   --color-theme-title: #0f172a;                 
   --color-theme-text: #334155;                  
   --color-theme-border: #cbd5e1;                
 
-  /* -----------------------------------------
-     💡 浅色备选：冰蓝磨砂风（想换回冰蓝，把上面5行注释掉，把这5行的注释打开即可）
-     ----------------------------------------- */
+  /* 💡 浅色备选：冰蓝磨砂风（想换回冰蓝，把上面5行注释掉，把这5行的注释打开即可） */
   /*
   --color-theme-bg: #dbeafe;
   --color-theme-card: rgba(255, 255, 255, 0.3);
@@ -28,9 +24,7 @@
   --color-theme-border: #cbd5e1;
   */
 
-  /* -----------------------------------------
-     🌙 深色模式（GitHub 经典暗夜风）
-     ----------------------------------------- */
+  /* 🌙 深色模式（GitHub 经典暗夜风） */
   --color-dark-bg: #0d1117;                     
   --color-dark-card: rgba(22, 27, 34, 0.8);     
   --color-dark-title: #f0f6fc;                  
@@ -46,15 +40,15 @@ body {
   @apply bg-theme-bg text-theme-text dark:bg-dark-bg dark:text-dark-text;
 }
 
-/* 文章排版 */
+/* 文章排版（去掉了 !important，改用更深的层级选择器） */
 .prose {
-  @apply text-theme-text dark:text-dark-text !important;
+  @apply text-theme-text dark:text-dark-text;
 }
 .prose h1, .prose h2, .prose h3, .prose h4 {
-  @apply text-theme-title dark:text-dark-title !important;
+  @apply text-theme-title dark:text-dark-title;
 }
 .prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
-  @apply text-[#2563eb] dark:text-dark-link hover:text-[#1d4ed8] dark:hover:text-[#79c0ff] transition-colors !important;
+  @apply text-[#2563eb] dark:text-dark-link hover:text-[#1d4ed8] dark:hover:text-[#79c0ff] transition-colors;
 }
 
 /* 代码块 */
