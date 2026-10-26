@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 
 let observer: MutationObserver | null = null
 
@@ -10,8 +10,8 @@ const initGiscus = () => {
   container.innerHTML = ''
   const isDark = document.documentElement.classList.contains('dark')
   
-  // 如果暗黑模式，强制使用 'dark_dimmed'，它的文字对比度极高，绝对不会出现黑底黑字
-  const theme = isDark ? 'dark_dimmed' : 'light'
+  // 浅色模式使用透明背景 transparent_light，深色模式使用 dark_dimmed
+  const theme = isDark ? 'dark_dimmed' : 'transparent_light'
 
   const script = document.createElement('script')
   script.src = 'https://giscus.app/client.js'
@@ -50,9 +50,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-    <h3 class="text-xl font-bold mb-4">发表评论</h3>
-    <!-- 使用 relative 和 z-index 隔离外部样式 -->
+  <!-- 调整了边框颜色，使用微透明边框与整体卡片融合 -->
+  <div class="mt-12 pt-8 border-t border-white/50 dark:border-gray-700/50">
+    <h3 class="text-xl font-bold mb-4 text-[#1e293b] dark:text-white">发表评论</h3>
     <div id="giscus-container" class="relative z-10"></div>
   </div>
 </template>
