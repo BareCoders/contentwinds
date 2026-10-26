@@ -8,9 +8,9 @@ const appConfig = useAppConfig();
 
 <template>
   <!-- 
-    外层容器：负责吸顶（sticky top-0）、最高层级（z-50）、毛玻璃背景（backdrop-blur-md）和底部分割线
+    外层容器：改用绝对固定（fixed）、最高层级（z-50）、毛玻璃背景（backdrop-blur-md）和底部分割线
   -->
-  <div class="sticky top-0 z-50 w-full bg-white/80 dark:bg-[#191a1c]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all">
+  <div class="fixed top-0 left-0 right-0 z-50 w-full bg-white/80 dark:bg-[#191a1c]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all">
     
     <!-- 
       内层容器：完全保留你原版的布局逻辑（flex、居中、宽度限制、内边距）
