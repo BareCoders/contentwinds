@@ -50,7 +50,7 @@ const prevPage = () => {
 
 <template>
   <!-- 核心修改：统一为磨砂半透明卡片，加上 mt-24 拉开与导航栏的距离 -->
-  <div class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full p-4 sm:p-8 rounded-2xl shadow-sm mt-24 mb-8">
+  <div class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)]">
     
     <h1 class="text-3xl font-bold mb-6 text-[#1e293b] dark:text-white">博客文章</h1>
 
