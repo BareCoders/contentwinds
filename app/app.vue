@@ -8,7 +8,8 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col sm:pt-6 sm:pb-10">
+  <!-- 加上了 pt-16 sm:pt-20，给顶部固定的导航栏留出空间 -->
+  <div class="min-h-screen flex flex-col pt-16 sm:pt-20 sm:pb-10">
     <Html lang="en" />
     <NuxtLoadingIndicator />
     
