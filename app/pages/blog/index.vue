@@ -24,7 +24,7 @@ const sortedPosts = computed(() => {
 
 // ================= 分页逻辑 =================
 const currentPage = ref(1)
-const pageSize = 3 // 每页显示的文章数量，你可以改成 5 或 10
+const pageSize = 10 // 每页显示的文章数量，你可以改成 5 或 10
 
 // 计算当前页应该显示哪些文章
 const paginatedPosts = computed(() => {
