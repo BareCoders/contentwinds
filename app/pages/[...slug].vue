@@ -24,7 +24,9 @@ const isBlogPage = computed(() => route.path.startsWith('/blog/'))
       <!-- 左侧大纲：手机端隐藏，电脑端显示 -->
       <aside class="hidden lg:block w-56 shrink-0 sticky top-24">
         <div class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider">目录大纲</div>
-        <ContentToc :links="page.body?.toc?.links" class="border-l-2 border-gray-100 dark:border-gray-800 pl-4 space-y-2">
+        
+        <!-- 🛠️ 修复 500 错误：去掉 :links 传参，让组件自己去抓取当前页面的目录 -->
+        <ContentToc class="border-l-2 border-gray-100 dark:border-gray-800 pl-4 space-y-2">
           <template #default="{ link }">
             <a :href="`#${link.id}`" class="block text-gray-600 hover:text-[#46677e] dark:text-gray-400 dark:hover:text-[#9fbcd0] transition-colors py-1 text-sm" :class="{ 'pl-4': link.depth === 3 }">
               {{ link.text }}
@@ -33,7 +35,7 @@ const isBlogPage = computed(() => route.path.startsWith('/blog/'))
         </ContentToc>
       </aside>
 
-      <!-- 右侧正文：加上 break-words 防止长网址撑破屏幕 -->
+      <!-- 右侧正文：加上 break-words 防止长网址撑破屏幕，字体加上了 text-sm 缩小手机端字号 -->
       <div class="flex-1 w-full min-w-0">
         <ContentRenderer
           v-if="page"
