@@ -46,8 +46,8 @@ const prevPage = () => {
 </script>
 
 <template>
-  <!-- 核心瘦身：使用全局卡片组件 -->
-  <div class="card-glass">
+  <!-- 1. 加上 flex flex-col，让卡片变成弹性上下布局 -->
+  <div class="card-glass flex flex-col">
     
     <h1 class="text-3xl font-bold mb-6 text-theme-title dark:text-dark-title">博客文章</h1>
 
@@ -55,7 +55,9 @@ const prevPage = () => {
       暂时还没有文章哦~
     </div>
 
-    <div v-else>
+    <!-- 2. 加上 flex-grow flex flex-col，让它撑满剩余空间 -->
+    <div v-else class="flex-grow flex flex-col">
+      
       <!-- 文章列表区域 -->
       <div class="space-y-0">
         <div 
@@ -77,8 +79,8 @@ const prevPage = () => {
         </div>
       </div>
 
-      <!-- 翻页按钮区域 -->
-      <div class="flex items-center justify-between mt-8 pt-4 border-t divider-dashed">
+      <!-- 3. 翻页按钮区域：把 mt-8 改成 mt-auto，强行推到底部 -->
+      <div class="flex items-center justify-between mt-auto pt-6 border-t divider-dashed">
         <!-- 按钮背景使用主题颜色，深色模式下会自动变暗，绝不刺眼 -->
         <button 
           @click="prevPage" 
@@ -100,7 +102,7 @@ const prevPage = () => {
           下一页
         </button>
       </div>
+      
     </div>
-    
   </div>
 </template>
