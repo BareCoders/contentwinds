@@ -7,10 +7,14 @@ const appConfig = useAppConfig();
 </script>
 
 <template>
-  <!-- 外层：绝对固定，z-50最高层级，毛玻璃背景 -->
-  <div class="fixed top-0 left-0 right-0 z-50 w-full bg-white/80 dark:bg-[#191a1c]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all">
+  <!-- 
+    修改说明：
+    1. 把 bg-white/80 换成了 bg-white，dark:bg-[#191a1c]/80 换成了 dark:bg-[#191a1c]。
+    2. 去掉了 backdrop-blur-md（有些浏览器不兼容会导致变透明）。
+    3. 加上了 shadow-sm（给底部加一点点阴影，形成层次感）。
+  -->
+  <div class="fixed top-0 left-0 right-0 z-50 w-full bg-white dark:bg-[#191a1c] border-b border-gray-200 dark:border-gray-800 shadow-sm transition-all">
     
-    <!-- 内层：去掉 max-w-2xl，改为 w-full 和你 80% 的排版对齐 -->
     <div class="flex justify-between items-center px-4 py-4 mx-auto sm:px-8 w-full">
       
       <!-- 左侧导航 -->
