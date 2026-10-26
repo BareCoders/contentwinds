@@ -7,13 +7,16 @@ const appConfig = useAppConfig();
 </script>
 
 <template>
-  <!-- 外层：fixed 固定在顶部，z-[999] 防止被遮挡 -->
-  <div class="fixed top-0 left-0 right-0 z-[999] w-full bg-white dark:bg-[#191a1c] border-b border-gray-200 dark:border-gray-800 shadow-md">
+  <!-- 
+    fixed 固定顶部，bg-white/80 实现 80% 透明度，backdrop-blur 实现毛玻璃效果
+    避免滚动时文字直接穿透导致看不清
+  -->
+  <div class="fixed top-0 left-0 right-0 z-50 w-full bg-white/80 dark:bg-[#191a1c]/80 backdrop-blur-md border-b border-gray-200/50 dark:border-gray-800/50 transition-all">
     
     <div class="flex justify-between items-center px-4 py-4 mx-auto sm:px-8 w-full">
       
-      <!-- 左侧导航：强制改为 text-gray-900（近乎纯黑），暗黑模式为白色 -->
-      <div class="text-gray-900 dark:text-white flex gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap font-medium">
+      <!-- 左侧导航 -->
+      <div class="text-gray-800 dark:text-gray-100 flex gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap font-medium">
         <NuxtLink
           v-for="link in navigation"
           :key="link.path" 
