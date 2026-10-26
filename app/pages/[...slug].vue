@@ -14,6 +14,14 @@ if (!page.value) {
 
 useSeoMeta(page.value?.seo || {})
 const isBlogPage = computed(() => route.path.startsWith('/blog/'))
+
+// 🛠️ 自己写一个获取大纲的方法，完全避开官方的组件
+const tocLinks = computed(() => {
+  // v3 里大纲数据通常在 body.toc.links 或者直接没有
+  const links = page.value?.body?.toc?.links || page.value?.toc?.links || []
+  // 过滤掉层级为 1 的 H1 大标题，只保留 H2 和 H3
+  return links.filter((link: any) => link.depth > 1)
+})
 </script>
 
 <template>
@@ -25,17 +33,21 @@ const isBlogPage = computed(() => route.path.startsWith('/blog/'))
       <aside class="hidden lg:block w-56 shrink-0 sticky top-24">
         <div class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider">目录大纲</div>
         
-        <!-- 🛠️ 修复 500 错误：去掉 :links 传参，让组件自己去抓取当前页面的目录 -->
-        <ContentToc class="border-l-2 border-gray-100 dark:border-gray-800 pl-4 space-y-2">
-          <template #default="{ link }">
-            <a :href="`#${link.id}`" class="block text-gray-600 hover:text-[#46677e] dark:text-gray-400 dark:hover:text-[#9fbcd0] transition-colors py-1 text-sm" :class="{ 'pl-4': link.depth === 3 }">
-              {{ link.text }}
-            </a>
-          </template>
-        </ContentToc>
+        <!-- 🛠️ 用自己手写的渲染逻辑 -->
+        <div class="border-l-2 border-gray-100 dark:border-gray-800 pl-4 space-y-2">
+          <a 
+            v-for="link in tocLinks" 
+            :key="link.id"
+            :href="`#${link.id}`" 
+            class="block text-gray-600 hover:text-[#46677e] dark:text-gray-400 dark:hover:text-[#9fbcd0] transition-colors py-1 text-sm" 
+            :class="{ 'pl-4': link.depth === 3 }"
+          >
+            {{ link.text }}
+          </a>
+        </div>
       </aside>
 
-      <!-- 右侧正文：加上 break-words 防止长网址撑破屏幕，字体加上了 text-sm 缩小手机端字号 -->
+      <!-- 右侧正文 -->
       <div class="flex-1 w-full min-w-0">
         <ContentRenderer
           v-if="page"
