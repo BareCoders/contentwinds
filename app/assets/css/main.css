@@ -4,12 +4,12 @@
 
 @source "../../../content/**/*";
 
-/* 全局冰蓝色背景 */
+/* 全局底色：调整为更有质感的灰蓝色 */
 body {
-  @apply bg-[#eaf3fa] text-[#334155] dark:bg-[#191a1c] dark:text-gray-200;
+  @apply bg-[#dbeafe] text-[#334155] dark:bg-[#191a1c] dark:text-gray-200;
 }
 
-/* 链接颜色：宝蓝色 */
+/* 链接颜色：深邃蓝 */
 .prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
   @apply text-[#2563eb] hover:text-[#1d4ed8] transition-colors;
 }
