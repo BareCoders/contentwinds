@@ -4,24 +4,28 @@
 
 @source "../../../content/**/*";
 
+/* 全局基础底色和文字 */
 body {
-  @apply bg-gray-50 text-black dark:bg-[#191a1c] dark:text-white;
+  /* 浅色：极浅的护眼灰白；深色：高级碳灰 */
+  @apply bg-[#f8f9fa] text-gray-800 dark:bg-[#191a1c] dark:text-gray-200;
 }
 
+/* 文章内链接颜色 */
 .prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
-  @apply text-[#46677e] dark:text-[#9fbcd0];
+  /* 浅色：深邃海蓝；深色：清透亮蓝 */
+  @apply text-[#2563eb] dark:text-[#60a5fa] hover:text-[#1d4ed8] dark:hover:text-[#93c5fd] transition-colors;
 }
 
 /* ==========================================
-   修复深色模式下代码块发白的问题 (Tailwind v4 语法)
+   修复代码块（保留黑底白字）
    ========================================== */
 
-/* 浅色模式下的代码块 */
+/* 浅色模式下的代码块（微灰底色+细边框） */
 .prose pre {
-  @apply bg-gray-100 border border-gray-200 text-gray-800;
+  @apply bg-[#f3f4f6] border border-gray-200 text-gray-800;
 }
 
-/* 深色模式下的代码块 */
+/* 深色模式下的代码块（纯正黑灰底色） */
 .dark .prose pre {
   @apply bg-[#1e1e1e] border-gray-700 text-gray-200;
 }
