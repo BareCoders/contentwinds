@@ -9,24 +9,24 @@
    ========================================= */
 @theme {
   /* -----------------------------------------
-     🐈 默认主题：GitHub 官方浅色风（当前生效）
+     🧊 默认主题：冰蓝磨砂风（当前生效）
      ----------------------------------------- */
-  --color-theme-bg: #f6f8fa;                    /* 背景：GitHub 网页最外层的极浅灰 */
-  --color-theme-card: #ffffff;                  /* 卡片：纯白（代码区/内容区） */
-  --color-theme-title: #24292f;                 /* 标题：GitHub 经典的深灰黑 */
-  --color-theme-text: #57606a;                  /* 正文：稍浅一点的灰色，看着极舒服 */
-  --color-theme-border: #d0d7de;                /* 边框线：GitHub 标志性的浅灰细线 */
+  --color-theme-bg: #dbeafe;                    /* 背景：浅冰蓝 */
+  --color-theme-card: rgba(255, 255, 255, 0.3); /* 卡片：30% 半透明白 */
+  --color-theme-title: #1e293b;                 /* 标题：深邃蓝灰 */
+  --color-theme-text: #334155;                  /* 正文：石板灰 */
+  --color-theme-border: #bfdbfe;                /* 边框线：稍深的冰蓝 */
 
   /* -----------------------------------------
-     💡 备选主题：冰蓝磨砂风
-     （想换回之前的冰蓝，把上面5行注释掉，取消下面5行的注释）
+     🐈 备选主题：GitHub 官方浅色风
+     （如果你想换回 GitHub 灰白风，把上面 5 行注释掉，取消下面 5 行的注释）
      ----------------------------------------- */
   /*
-  --color-theme-bg: #dbeafe;
-  --color-theme-card: rgba(255, 255, 255, 0.3);
-  --color-theme-title: #1e293b;
-  --color-theme-text: #334155;
-  --color-theme-border: #bfdbfe;
+  --color-theme-bg: #f6f8fa;
+  --color-theme-card: #ffffff;
+  --color-theme-title: #24292f;
+  --color-theme-text: #57606a;
+  --color-theme-border: #d0d7de;
   */
 
   /* -----------------------------------------
@@ -34,10 +34,10 @@
      ----------------------------------------- */
   --color-dark-bg: #0d1117;                     /* 背景：深空灰 */
   --color-dark-card: #161b22;                   /* 卡片：稍微亮一点的深灰 */
-  --color-dark-title: #f0f6fc;                  /* 标题：亮白 */
-  --color-dark-text: #8b949e;                   /* 正文：中灰，护眼 */
+  --color-dark-title: #c9d1d9;                  /* 标题：亮白 */
+  --color-dark-text: #8b949e;                   /* 正文：中灰 */
   --color-dark-border: #30363d;                 /* 边框：暗灰 */
-  --color-dark-link: #58a6ff;                   /* 高亮链接：GitHub 专属亮蓝 */
+  --color-dark-link: #58a6ff;                   /* 链接：亮蓝 */
 }
 
 /* =========================================
@@ -55,7 +55,7 @@ body {
   @apply text-theme-title dark:text-dark-title;
 }
 .prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
-  @apply text-[#0969da] dark:text-dark-link hover:underline transition-all;
+  @apply text-[#0969da] dark:text-dark-link hover:underline transition-colors;
 }
 
 /* 代码块 */
@@ -73,23 +73,22 @@ body {
    公共组件
    ========================================= */
 
-/* 卡片背景 */
+/* 卡片背景（如果是冰蓝主题，这里是半透明的；如果是 GitHub 主题，这里是实心白） */
 .card-glass {
-  @apply backdrop-blur-md ring-1 ring-theme-border w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)];
+  @apply backdrop-blur-md ring-1 ring-theme-border/60 dark:ring-dark-border/60 w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)];
   background-color: var(--color-theme-card);
 }
 .dark .card-glass {
-  @apply ring-dark-border;
   background-color: var(--color-dark-card);
 }
 
 /* 顶部导航栏 */
 .nav-glass {
   @apply fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md border-b border-theme-border dark:border-dark-border transition-all;
-  background-color: color-mix(in srgb, var(--color-theme-bg) 90%, transparent);
+  background-color: color-mix(in srgb, var(--color-theme-bg) 85%, transparent);
 }
 .dark .nav-glass {
-  background-color: color-mix(in srgb, var(--color-dark-bg) 80%, transparent);
+  background-color: color-mix(in srgb, var(--color-dark-bg) 85%, transparent);
 }
 
 /* 虚线分割线 */
