@@ -24,22 +24,25 @@ const tocLinks = computed(() => {
 
 <template>
   <!-- 
-    mt-24 解决顶部遮挡问题，同时不会空太多。
-    prose-pre 颜色加深，解决代码块白底看不清字的问题。
+    核心修改：实现了浅蓝底色上的半透明磨砂卡片
+    1. bg-white/60：60% 透明度的白色，露出底部的浅蓝色
+    2. backdrop-blur-md：磨砂毛玻璃效果
+    3. ring-white/50：非常细微的白色反光边框
+    4. rounded-2xl shadow-sm：大圆角和极其柔和的阴影
   -->
-  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white dark:bg-[#191a1c] ring-1 ring-gray-200 dark:ring-gray-700 w-full p-4 sm:p-8 rounded-lg shadow mt-24 mb-8">
+  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white/60 dark:bg-[#191a1c]/60 backdrop-blur-md ring-1 ring-white/50 dark:ring-gray-800 w-full p-4 sm:p-8 rounded-2xl shadow-sm mt-24 mb-8">
     
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full overflow-hidden">
       
       <!-- 左侧大纲 -->
       <aside class="hidden lg:block w-56 shrink-0 sticky top-24">
         <div class="text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider">目录大纲</div>
-        <div class="border-l-2 border-gray-100 dark:border-gray-800 pl-4 space-y-2">
+        <div class="border-l-2 border-blue-200/50 dark:border-gray-800 pl-4 space-y-2">
           <a 
             v-for="link in tocLinks" 
             :key="link.id"
             :href="`#${link.id}`" 
-            class="block text-gray-600 hover:text-[#46677e] dark:text-gray-400 dark:hover:text-[#9fbcd0] transition-colors py-1 text-sm" 
+            class="block text-gray-600 hover:text-[#2563eb] dark:text-gray-400 dark:hover:text-[#9fbcd0] transition-colors py-1 text-sm" 
             :class="{ 'pl-4': link.depth === 3 }"
           >
             {{ link.text }}
@@ -49,11 +52,10 @@ const tocLinks = computed(() => {
 
       <!-- 右侧正文 -->
       <div class="flex-1 w-full min-w-0">
-        <!-- 这里修改了 prose-pre:bg-gray-100 为更深的颜色，修复代码块发白 -->
         <ContentRenderer
           v-if="page"
           :value="page"
-          class="prose dark:prose-invert prose-pre:bg-gray-50 dark:prose-pre:bg-gray-800 max-w-none break-words text-sm sm:text-base"
+          class="prose dark:prose-invert max-w-none break-words text-sm sm:text-base"
         />
         
         <Comments v-if="isBlogPage" />
