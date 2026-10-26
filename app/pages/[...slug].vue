@@ -24,13 +24,9 @@ const tocLinks = computed(() => {
 
 <template>
   <!-- 
-    核心修改：实现了浅蓝底色上的半透明磨砂卡片
-    1. bg-white/60：60% 透明度的白色，露出底部的浅蓝色
-    2. backdrop-blur-md：磨砂毛玻璃效果
-    3. ring-white/50：非常细微的白色反光边框
-    4. rounded-2xl shadow-sm：大圆角和极其柔和的阴影
+    核心修改：降低白色透明度至 30%，让卡片和背景融合，实现极微小的色差
   -->
-  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white/60 dark:bg-[#191a1c]/60 backdrop-blur-md ring-1 ring-white/50 dark:ring-gray-800 w-full p-4 sm:p-8 rounded-2xl shadow-sm mt-24 mb-8">
+  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full p-4 sm:p-8 rounded-2xl shadow-sm mt-24 mb-8">
     
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full overflow-hidden">
       
