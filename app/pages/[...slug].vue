@@ -25,8 +25,9 @@ const tocLinks = computed(() => {
 </script>
 
 <template>
-  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white dark:bg-[#191a1c] ring-1 ring-gray-200 dark:ring-gray-700 w-full p-4 sm:p-8 rounded-lg shadow my-8">
-    
+  
+  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white dark:bg-[#191a1c] ring-1 ring-gray-200 dark:ring-gray-700 w-full p-4 sm:p-8 rounded-lg shadow mt-24 mb-8">
+   
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full overflow-hidden">
       
       <!-- 左侧大纲：手机端隐藏，电脑端显示 -->
