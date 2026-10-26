@@ -4,26 +4,93 @@
 
 @source "../../../content/**/*";
 
-/* 稍微深一点的灰蓝底色 */
+/* =========================================
+   🎨 色彩中心（所有颜色都在这里）
+   ========================================= */
+@theme {
+  /* -----------------------------------------
+     ☀️ 浅色模式（当前默认：高级石板灰）
+     ----------------------------------------- */
+  --color-theme-bg: #f1f5f9;                    
+  --color-theme-card: rgba(255, 255, 255, 0.6); 
+  --color-theme-title: #0f172a;                 
+  --color-theme-text: #334155;                  
+  --color-theme-border: #cbd5e1;                
+
+  /* -----------------------------------------
+     💡 浅色备选：冰蓝磨砂风（想换回冰蓝，把上面5行注释掉，把这5行的注释打开即可）
+     ----------------------------------------- */
+  /*
+  --color-theme-bg: #dbeafe;
+  --color-theme-card: rgba(255, 255, 255, 0.3);
+  --color-theme-title: #1e293b;
+  --color-theme-text: #334155;
+  --color-theme-border: #cbd5e1;
+  */
+
+  /* -----------------------------------------
+     🌙 深色模式（GitHub 经典暗夜风）
+     ----------------------------------------- */
+  --color-dark-bg: #0d1117;                     
+  --color-dark-card: rgba(22, 27, 34, 0.8);     
+  --color-dark-title: #f0f6fc;                  
+  --color-dark-text: #c9d1d9;                   
+  --color-dark-border: #30363d;                 
+  --color-dark-link: #58a6ff;                   
+}
+
+/* =========================================
+   全局底色与文字
+   ========================================= */
 body {
-  @apply bg-[#dbeafe] text-[#334155] dark:bg-[#191a1c] dark:text-gray-200;
+  @apply bg-theme-bg text-theme-text dark:bg-dark-bg dark:text-dark-text;
 }
 
-/* 链接颜色 */
+/* 文章排版 */
+.prose {
+  @apply text-theme-text dark:text-dark-text !important;
+}
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  @apply text-theme-title dark:text-dark-title !important;
+}
 .prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
-  @apply text-[#2563eb] hover:text-[#1d4ed8] transition-colors;
+  @apply text-[#2563eb] dark:text-dark-link hover:text-[#1d4ed8] dark:hover:text-[#79c0ff] transition-colors !important;
 }
 
-/* 浅色模式代码块 */
+/* 代码块 */
 .prose pre {
-  @apply bg-white/60 border border-blue-100 text-gray-800;
+  @apply bg-[#e2e8f0] border border-theme-border text-theme-title;
 }
-
-/* 深色模式代码块 */
 .dark .prose pre {
-  @apply bg-[#1e1e1e] border-gray-700 text-gray-200;
+  @apply bg-[#161b22] border-dark-border text-dark-text;
+}
+.dark .prose pre code {
+  @apply text-dark-text;
 }
 
-.dark .prose pre code {
-  @apply text-gray-200;
+/* =========================================
+   公共组件
+   ========================================= */
+
+/* 卡片背景 */
+.card-glass {
+  @apply backdrop-blur-md ring-1 ring-theme-border/60 dark:ring-dark-border/60 w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)];
+  background-color: var(--color-theme-card);
+}
+.dark .card-glass {
+  background-color: var(--color-dark-card);
+}
+
+/* 顶部导航栏 */
+.nav-glass {
+  @apply fixed top-0 left-0 right-0 z-50 w-full backdrop-blur-md border-b border-theme-border/50 dark:border-dark-border shadow-sm transition-all;
+  background-color: color-mix(in srgb, var(--color-theme-bg) 80%, transparent);
+}
+.dark .nav-glass {
+  background-color: color-mix(in srgb, var(--color-dark-bg) 80%, transparent);
+}
+
+/* 虚线分割线 */
+.divider-dashed {
+  @apply border-dashed border-theme-border/60 dark:border-dark-border/60;
 }
