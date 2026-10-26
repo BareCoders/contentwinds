@@ -52,7 +52,10 @@ watch(() => route.path, () => {
       </div>
     </main>
     
+    <!-- footer -->
     <AppFooter />
+    <!-- 回到顶部 -->
+    <BackToTop />
   </div>
 </template>
 
