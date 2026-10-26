@@ -3,12 +3,10 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const isVisible = ref(false)
 
-// 监听滚动事件，滑动超过 300px 时显示按钮
 const handleScroll = () => {
   isVisible.value = window.scrollY > 300
 }
 
-// 点击后平滑滚动到顶部
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
@@ -26,10 +24,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <!-- 
-    使用 Transition 实现淡入淡出效果
-    毛玻璃背景 + 向上箭头
-  -->
   <Transition
     enter-active-class="transition duration-300 ease-out"
     enter-from-class="translate-y-4 opacity-0"
@@ -41,11 +35,11 @@ onUnmounted(() => {
     <button
       v-show="isVisible"
       @click="scrollToTop"
-      class="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-white/40 dark:bg-[#191a1c]/40 backdrop-blur-md ring-1 ring-white/50 dark:ring-gray-700 shadow-sm text-gray-700 dark:text-gray-200 hover:bg-white/60 dark:hover:bg-[#191a1c]/60 hover:-translate-y-1 transition-all flex items-center justify-center"
       aria-label="回到顶部"
+      class="fixed bottom-8 right-8 z-50 p-3.5 rounded-full text-white shadow-lg shadow-blue-500/40 hover:shadow-xl hover:shadow-blue-500/60 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center bg-gradient-to-tr from-[#0969da] to-[#58a6ff] dark:from-[#1f6feb] dark:to-[#3fb950]"
     >
       <!-- 向上箭头图标 -->
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
       </svg>
     </button>
