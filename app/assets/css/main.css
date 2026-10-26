@@ -1,36 +1,38 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-@custom-variant dark (&:where(.dark, .dark *));
+<script setup lang="ts">
+const { cover } = useAppConfig()
 
-@source "../../../content/**/*";
+useSeoMeta({
+  ogImage: cover,
+  twitterCard: 'summary_large_image',
+})
+</script>
 
-/* 全局基础底色和文字 */
-body {
-  /* 浅色：极浅的护眼灰白；深色：高级碳灰 */
-  @apply bg-[#f8f9fa] text-gray-800 dark:bg-[#191a1c] dark:text-gray-200;
+<template>
+  <!-- 
+    核心改动：
+    1. 加了 bg-[#eaf3fa] 强制冰蓝背景。
+    2. 保留 pt-20 给顶部导航留空间。
+  -->
+  <div class="min-h-screen flex flex-col pt-20 pb-10 bg-[#eaf3fa] dark:bg-[#191a1c] text-[#334155] dark:text-gray-200 transition-colors">
+    <Html lang="en" />
+    <NuxtLoadingIndicator />
+    
+    <AppNavbar />
+    
+    <main class="flex-grow">
+      <!-- 统一限制为 80% -->
+      <div class="w-[80%] mx-auto">
+        <NuxtPage />
+      </div>
+    </main>
+    
+    <AppFooter />
+  </div>
+</template>
+
+<style>
+/* 强制覆盖：只要页面里还有 max-w-3xl，统统让它变成 100% 宽 */
+main .max-w-3xl {
+  max-width: 100% !important;
 }
-
-/* 文章内链接颜色 */
-.prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
-  /* 浅色：深邃海蓝；深色：清透亮蓝 */
-  @apply text-[#2563eb] dark:text-[#60a5fa] hover:text-[#1d4ed8] dark:hover:text-[#93c5fd] transition-colors;
-}
-
-/* ==========================================
-   修复代码块（保留黑底白字）
-   ========================================== */
-
-/* 浅色模式下的代码块（微灰底色+细边框） */
-.prose pre {
-  @apply bg-[#f3f4f6] border border-gray-200 text-gray-800;
-}
-
-/* 深色模式下的代码块（纯正黑灰底色） */
-.dark .prose pre {
-  @apply bg-[#1e1e1e] border-gray-700 text-gray-200;
-}
-
-/* 深色模式下代码块里的文字颜色 */
-.dark .prose pre code {
-  @apply text-gray-200;
-}
+</style>
