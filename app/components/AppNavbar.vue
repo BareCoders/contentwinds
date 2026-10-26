@@ -7,27 +7,25 @@ const appConfig = useAppConfig();
 </script>
 
 <template>
-  <!-- 
-    外层容器：改用绝对固定（fixed）、最高层级（z-50）、毛玻璃背景（backdrop-blur-md）和底部分割线
-  -->
+  <!-- 外层：绝对固定，z-50最高层级，毛玻璃背景 -->
   <div class="fixed top-0 left-0 right-0 z-50 w-full bg-white/80 dark:bg-[#191a1c]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-all">
     
-    <!-- 
-      内层容器：完全保留你原版的布局逻辑（flex、居中、宽度限制、内边距）
-    -->
-    <div class="flex justify-between px-4 py-4 mx-auto sm:px-8 max-w-2xl">
-      <!-- Navigation -->
-      <div class="text-gray-700 dark:text-gray-200">
+    <!-- 内层：去掉 max-w-2xl，改为 w-full 和你 80% 的排版对齐 -->
+    <div class="flex justify-between items-center px-4 py-4 mx-auto sm:px-8 w-full">
+      
+      <!-- 左侧导航 -->
+      <div class="text-gray-700 dark:text-gray-200 flex gap-4 sm:gap-6 overflow-x-auto whitespace-nowrap">
         <NuxtLink
           v-for="link in navigation"
-          :key="link.path" class="mr-6"
+          :key="link.path" 
           :to="link.path"
-          active-class="font-bold"
+          class="hover:text-[#46677e] dark:hover:text-[#9fbcd0] transition-colors"
+          active-class="font-bold text-[#46677e] dark:text-[#9fbcd0]"
         >{{ link.title }}</NuxtLink>
       </div>
       
-      <!-- Social icons & Color Mode -->
-      <div class="text-gray-500 space-x-3 transition flex items-center">
+      <!-- 右侧社交图标与暗黑模式 -->
+      <div class="text-gray-500 flex items-center gap-3 sm:gap-4 ml-4">
         <a
           v-if="appConfig.socials?.twitter || appConfig.socials?.x"
           class="dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300"
@@ -60,7 +58,7 @@ const appConfig = useAppConfig();
         </a>
         <ColorModeSwitch class="dark:text-gray-100 hover:text-gray-700 dark:hover:text-gray-300" />
       </div>
+      
     </div>
-
   </div>
 </template>
