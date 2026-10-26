@@ -75,7 +75,8 @@ body {
 
 /* 卡片背景（GitHub 纯白实底） */
 .card-glass {
-  @apply ring-1 ring-theme-border w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8 min-h-[calc(100vh-100px)];
+  /* 👇 这里去掉了 min-h-[calc(100vh-100px)]，让高度自适应内容 */
+  @apply ring-1 ring-theme-border w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8;
   background-color: var(--color-theme-card);
 }
 .dark .card-glass {
