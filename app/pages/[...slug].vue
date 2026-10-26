@@ -28,11 +28,11 @@ const tocLinks = computed(() => {
 <template>
   <!-- 
     核心修改说明：
-    1. mt-16：将顶部间距从 mt-24 缩小，解决电脑端上方空一大截的问题。
-    2. min-h-[calc(100vh-150px)]：强制卡片撑满屏幕剩余高度，避免文章内容少时底部太空。
-    3. bg-white/30 + backdrop-blur-md：磨砂半透明玻璃卡片，透出冰蓝底色。
+    1. mt-8：顶部间距进一步缩小到一半，紧贴导航栏下方，不空旷。
+    2. max-w-5xl mx-auto：限制卡片最大宽度并居中，防止在超宽电脑屏幕上被拉得特别长。
+    3. min-h-[calc(100vh-100px)]：让卡片撑满屏幕高度。
   -->
-  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full p-4 sm:p-8 rounded-2xl shadow-sm mt-16 mb-8 min-h-[calc(100vh-150px)]">
+  <NuxtLayout :name="page?.layout as LayoutKey || 'default'" class="bg-white/30 dark:bg-[#191a1c]/30 backdrop-blur-md ring-1 ring-white/40 dark:ring-gray-800 w-full max-w-5xl mx-auto p-4 sm:p-8 rounded-2xl shadow-sm mt-8 mb-8 min-h-[calc(100vh-100px)]">
     
     <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start w-full">
       
