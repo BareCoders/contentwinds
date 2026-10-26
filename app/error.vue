@@ -9,20 +9,15 @@ const handleError = () => clearError({ redirect: '/' })
 </script>
 
 <template>
-  <!-- 
-    1. 使用 error-bg 类实现深度渐变。
-    2. 直接调用原装的 <AppNavbar /> 和 <AppFooter />。
-  -->
   <div class="error-bg min-h-screen flex flex-col text-[#334155] dark:text-[#c9d1d9] transition-colors duration-300">
     
-    <!-- 完整导航栏 -->
+    <!-- 1. 原装导航栏 -->
     <AppNavbar />
 
-    <!-- 主体内容：pt-32 留出足够的空间，防止被固定的导航栏遮挡 -->
+    <!-- 2. 主体内容 -->
     <main class="flex-grow flex items-center justify-center px-4 pt-32 pb-10 relative z-10">
       <div class="text-center flex flex-col items-center">
         
-        <!-- 超大号 404 -->
         <h1 class="text-8xl sm:text-9xl font-black mb-6 text-[#334155] dark:text-white/20 select-none">
           {{ props.error?.statusCode || 404 }}
         </h1>
@@ -45,14 +40,14 @@ const handleError = () => clearError({ redirect: '/' })
       </div>
     </main>
 
-    <!-- 完整页脚 -->
+    <!-- 3. 直接调用现成的 AppFooter -->
     <AppFooter />
   </div>
 </template>
 
 <style>
 /* 
-  🌟 深度还原图 2 的渐变光晕背景
+  🌟 深度还原的渐变光晕背景
 */
 .error-bg {
   background-color: #e2e8f0;
