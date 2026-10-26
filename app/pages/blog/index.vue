@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 1. 获取 blog 下的所有文章
+// 1. 获取 blog 下的所有的文章
 const { data: posts } = await useAsyncData('blog-posts', () => {
   return queryCollection('content')
     .where('path', 'LIKE', '/blog/%')
@@ -60,23 +60,22 @@ const prevPage = () => {
       
       <!-- 文章列表区域 -->
       <div class="space-y-0">
-        <div 
+        <!-- 核心修改：改成 NuxtLink 包裹整行，点击体验更好 -->
+        <NuxtLink 
           v-for="post in paginatedPosts" 
           :key="post.path" 
-          class="flex items-center justify-between py-4 border-b divider-dashed last:border-0"
+          :to="post.path"
+          class="group flex items-center justify-between py-4 border-b divider-dashed last:border-0 transition-colors px-2 -mx-2 rounded-lg hover:bg-[#f6f8fa] dark:hover:bg-[#161b22]"
         >
-          <!-- 标题颜色使用主题变量 -->
-          <NuxtLink 
-            :to="post.path" 
-            class="text-base font-medium text-theme-title dark:text-dark-title hover:text-[#2563eb] dark:hover:text-dark-link transition-colors"
-          >
+          <!-- 标题：直接使用经典的 GitHub 链接蓝，悬停时出现下划线 -->
+          <span class="text-base font-medium text-[#0969da] dark:text-dark-link group-hover:underline decoration-1 underline-offset-4">
             {{ post.title }}
-          </NuxtLink>
+          </span>
           
-          <span class="text-xs text-theme-text dark:text-dark-text whitespace-nowrap ml-4">
+          <span class="text-xs text-theme-text/70 dark:text-dark-text/70 whitespace-nowrap ml-4">
             {{ post.displayDate }}
           </span>
-        </div>
+        </NuxtLink>
       </div>
 
       <!-- 3. 翻页按钮区域：把 mt-8 改成 mt-auto，强行推到底部 -->
