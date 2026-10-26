@@ -13,17 +13,20 @@ body {
 }
 
 /* ==========================================
-   修复深色模式下代码块发白的问题
+   修复深色模式下代码块发白的问题 (Tailwind v4 语法)
    ========================================== */
 
+/* 浅色模式下的代码块 */
 .prose pre {
-  @apply bg-gray-100 border border-gray-200 text-gray-800 !important;
+  @apply bg-gray-100 border border-gray-200 text-gray-800;
 }
 
+/* 深色模式下的代码块 */
 .dark .prose pre {
-  @apply bg-[#1e1e1e] border-gray-700 text-gray-200 !important;
+  @apply bg-[#1e1e1e] border-gray-700 text-gray-200;
 }
 
+/* 深色模式下代码块里的文字颜色 */
 .dark .prose pre code {
-  @apply text-gray-200 !important;
+  @apply text-gray-200;
 }
