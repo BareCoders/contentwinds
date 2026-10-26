@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@source "../../../content/**/*";
+
+body {
+  @apply bg-gray-50 text-black dark:bg-[#191a1c] dark:text-white;
+}
+
+.prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
+  @apply text-[#46677e] dark:text-[#9fbcd0];
+}
+
+/* ==========================================
+   修复深色模式下代码块发白的问题
+   ========================================== */
+
+.prose pre {
+  @apply bg-gray-100 border border-gray-200 text-gray-800 !important;
+}
+
+.dark .prose pre {
+  @apply bg-[#1e1e1e] border-gray-700 text-gray-200 !important;
+}
+
+.dark .prose pre code {
+  @apply text-gray-200 !important;
+}
