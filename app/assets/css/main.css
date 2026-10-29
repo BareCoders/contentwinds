@@ -5,15 +5,15 @@
 @source "../../../content/**/*";
 
 /* =========================================
-   🎨 色彩中心（所有颜色都在这里，随时可换）
+   🎨 色彩中心（修改这里即可一键换肤）
    ========================================= */
 @theme {
-  /* ☀️ 默认主题：GitHub 官方浅色风（当前生效） */
-  --color-theme-bg: #f6f8fa;                    /* 背景：极浅灰 */
-  --color-theme-card: #ffffff;                  /* 卡片：纯白 */
-  --color-theme-title: #24292f;                 /* 标题：深灰黑 */
-  --color-theme-text: #57606a;                  /* 正文：中灰色 */
-  --color-theme-border: #d0d7de;                /* 边框线：浅灰 */
+  /* ☀️ 默认主题：GitHub 官方浅色风 */
+  --color-theme-bg: #f6f8fa;                    
+  --color-theme-card: #ffffff;                  
+  --color-theme-title: #24292f;                 
+  --color-theme-text: #57606a;                  
+  --color-theme-border: #d0d7de;                
 
   /* 🧊 备选主题：冰蓝磨砂风（想换回冰蓝，把上面5行注释，取消下面5行注释） */
   /*
@@ -25,12 +25,12 @@
   */
 
   /* 🌙 深色模式：GitHub 官方深色风 */
-  --color-dark-bg: #0d1117;                     /* 背景：深空灰 */
-  --color-dark-card: #161b22;                   /* 卡片：稍微亮一点的深灰 */
-  --color-dark-title: #c9d1d9;                  /* 标题：亮白 */
-  --color-dark-text: #8b949e;                   /* 正文：中灰 */
-  --color-dark-border: #30363d;                 /* 边框：暗灰 */
-  --color-dark-link: #58a6ff;                   /* 链接：亮蓝 */
+  --color-dark-bg: #0d1117;                     
+  --color-dark-card: #161b22;                   
+  --color-dark-title: #c9d1d9;                  
+  --color-dark-text: #8b949e;                   
+  --color-dark-border: #30363d;                 
+  --color-dark-link: #58a6ff;                   
 }
 
 /* =========================================
@@ -102,30 +102,58 @@ body {
    ✨ 深度美化区
    ========================================= */
 
-/* 1. 折叠面板 (details / summary) */
+/* 👇 1. 折叠面板基础变量 (Bootstrap 风格) */
+:root {
+  --accordion-bg: #f8f9fa;          /* 背景色 */
+  --accordion-border: #dee2e6;      /* 边框颜色 */
+  --accordion-primary: #0d6efd;     /* 默认左侧高亮条（蓝） */
+  --accordion-title: #212529;       /* 标题文字颜色 */
+  --accordion-content: #495057;     /* 展开内容的文字颜色 */
+}
+html.dark {
+  --accordion-bg: #21262d;          
+  --accordion-border: #30363d;      
+  --accordion-primary: #58a6ff;     
+  --accordion-title: #c9d1d9;       
+  --accordion-content: #8b949e;     
+}
+
+/* 折叠面板整体 */
 .prose details {
-  @apply bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-xl mb-4 overflow-hidden transition-all;
-  border-left: 4px solid #0969da; 
+  background-color: var(--accordion-bg);
+  border: 1px solid var(--accordion-border);
+  border-left: 4px solid var(--accordion-primary);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: all 0.2s ease;
 }
-.dark .prose details {
-  border-left-color: #58a6ff;
-}
+
+/* 折叠面板标题（点击区） */
 .prose details summary {
-  @apply px-4 py-3 font-semibold cursor-pointer select-none flex items-center list-none transition-colors;
-  color: #24292f !important; /* 👈 折叠标题颜色（可改） */
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--accordion-title);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  transition: background-color 0.2s, color 0.2s;
 }
-.dark .prose details summary {
-  color: #c9d1d9 !important;
-}
+
 .prose details summary:hover {
-  color: #0969da !important;
+  background-color: rgba(0, 0, 0, 0.03);
 }
-.dark .prose details summary:hover {
-  color: #58a6ff !important;
+html.dark .prose details summary:hover {
+  background-color: rgba(255, 255, 255, 0.03);
 }
+
 .prose details summary::-webkit-details-marker {
   display: none;
 }
+
+/* 自定义小三角 */
 .prose details summary::before {
   content: '';
   display: inline-block;
@@ -133,63 +161,95 @@ body {
   height: 0;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-left: 6px solid #0969da;
+  border-left: 6px solid var(--accordion-primary);
   margin-right: 10px;
   transition: transform 0.2s ease;
 }
-.dark .prose details summary::before {
-  border-left-color: #58a6ff;
-}
+
+/* 展开时小三角向下 */
 .prose details[open] summary::before {
   transform: rotate(90deg);
 }
+
+/* 内容区域 */
 .prose details > *:not(summary) {
-  @apply px-4 pb-4 text-[#57606a] dark:text-[#8b949e] text-sm;
-}
-.prose details[open] > *:not(summary) {
-  border-top: 1px dashed #d0d7de;
-  padding-top: 12px;
-  margin-top: 4px;
-}
-.dark .prose details[open] > *:not(:summary) {
-  border-top-color: #30363d;
+  padding: 16px;
+  color: var(--accordion-content);
+  font-size: 0.95rem;
 }
 
-/* 2. 无序列表（极简小圆点） */
-.prose ul {
-  list-style-type: none !important;
-  padding-left: 0 !important;
+/* 展开后的顶部虚线分割线 */
+.prose details[open] > *:not(summary) {
+  border-top: 1px dashed var(--accordion-border);
 }
-.prose ul > li {
-  position: relative;
-  padding-left: 1.2em;
+
+
+/* 👇 2. 自定义折叠面板颜色 (Bootstrap 风格) */
+
+/* 成功/绿色 (Success) */
+.prose details.details-success { border-left-color: #198754; }
+.prose details.details-success summary::before { border-left-color: #198754; }
+.prose details.details-success summary:hover { color: #198754 !important; }
+html.dark .prose details.details-success { border-left-color: #3fb950; }
+html.dark .prose details.details-success summary::before { border-left-color: #3fb950; }
+html.dark .prose details.details-success summary:hover { color: #3fb950 !important; }
+
+/* 错误/红色 (Danger) */
+.prose details.details-danger { border-left-color: #dc3545; }
+.prose details.details-danger summary::before { border-left-color: #dc3545; }
+.prose details.details-danger summary:hover { color: #dc3545 !important; }
+html.dark .prose details.details-danger { border-left-color: #f85149; }
+html.dark .prose details.details-danger summary::before { border-left-color: #f85149; }
+html.dark .prose details.details-danger summary:hover { color: #f85149 !important; }
+
+/* 警告/黄色 (Warning) */
+.prose details.details-warning { border-left-color: #ffc107; }
+.prose details.details-warning summary::before { border-left-color: #ffc107; }
+.prose details.details-warning summary:hover { color: #ffc107 !important; }
+html.dark .prose details.details-warning { border-left-color: #d29922; }
+html.dark .prose details.details-warning summary::before { border-left-color: #d29922; }
+html.dark .prose details.details-warning summary:hover { color: #d29922 !important; }
+
+/* 信息/青色 (Info) */
+.prose details.details-info { border-left-color: #0dcaf0; }
+.prose details.details-info summary::before { border-left-color: #0dcaf0; }
+.prose details.details-info summary:hover { color: #0dcaf0 !important; }
+html.dark .prose details.details-info { border-left-color: #58a6ff; }
+html.dark .prose details.details-info summary::before { border-left-color: #58a6ff; }
+html.dark .prose details.details-info summary:hover { color: #58a6ff !important; }
+
+
+/* 👇 3. 无序列表（Bootstrap 小圆点风格） */
+.prose ul {
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.prose li {
   margin-top: 0.4em;
   margin-bottom: 0.4em;
 }
-.prose ul > li::before {
-  content: "·";
-  position: absolute;
-  left: 0;
-  top: -0.1em;
-  color: #8c959f;
-  font-size: 1.5em;
-  line-height: 1;
-}
-.dark .prose ul > li::before {
-  color: #6e7681;
+
+.prose ul > li::marker {
+  color: var(--color-theme-text); 
 }
 
-/* 3. Markdown 表格（斑马纹 + 移动端完美横滑） */
+html.dark .prose ul > li::marker {
+  color: var(--color-dark-text);
+}
+
+
+/* 👇 4. Markdown 表格（斑马纹 + 手机横滑） */
 .prose table {
   @apply w-full text-sm mb-8 border-collapse;
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--color-theme-border);
   border-radius: 8px;
 }
-.dark .prose table {
-  border-color: #30363d;
+html.dark .prose table {
+  border-color: var(--color-dark-border);
 }
 .prose thead, .prose tbody {
   display: table;
@@ -200,20 +260,24 @@ body {
   @apply bg-[#f6f8fa] dark:bg-[#161b22];
 }
 .prose th {
-  @apply px-4 py-3 font-semibold text-left text-[#24292f] dark:text-[#c9d1d9];
-  border-bottom: 2px solid #d0d7de;
+  @apply px-4 py-3 font-semibold text-left;
+  color: var(--color-theme-title);
+  border-bottom: 2px solid var(--color-theme-border);
   white-space: nowrap;
 }
-.dark .prose th {
-  border-bottom-color: #30363d;
+html.dark .prose th {
+  color: var(--color-dark-title);
+  border-bottom-color: var(--color-dark-border);
 }
 .prose td {
-  @apply px-4 py-3 text-[#57606a] dark:text-[#8b949e];
-  border-bottom: 1px solid #d0d7de;
+  @apply px-4 py-3;
+  color: var(--color-theme-text);
+  border-bottom: 1px solid var(--color-theme-border);
   white-space: nowrap;
 }
-.dark .prose td {
-  border-bottom-color: #30363d;
+html.dark .prose td {
+  color: var(--color-dark-text);
+  border-bottom-color: var(--color-dark-border);
 }
 .prose tbody tr:last-child td {
   border-bottom: none;
