@@ -5,22 +5,17 @@
 @source "../../../content/**/*";
 
 /* =========================================
-   🎨 色彩中心
+   🎨 色彩中心（所有颜色都在这里，随时可换）
    ========================================= */
 @theme {
-  /* -----------------------------------------
-     🐈 默认主题：GitHub 官方浅色风（当前生效）
-     ----------------------------------------- */
+  /* ☀️ 默认主题：GitHub 官方浅色风（当前生效） */
   --color-theme-bg: #f6f8fa;                    /* 背景：极浅灰 */
   --color-theme-card: #ffffff;                  /* 卡片：纯白 */
   --color-theme-title: #24292f;                 /* 标题：深灰黑 */
   --color-theme-text: #57606a;                  /* 正文：中灰色 */
   --color-theme-border: #d0d7de;                /* 边框线：浅灰 */
 
-  /* -----------------------------------------
-     🧊 备选主题：冰蓝磨砂风
-     （如果你想换回冰蓝风，把上面 5 行注释掉，取消下面 5 行的注释）
-     ----------------------------------------- */
+  /* 🧊 备选主题：冰蓝磨砂风（想换回冰蓝，把上面5行注释，取消下面5行注释） */
   /*
   --color-theme-bg: #dbeafe;
   --color-theme-card: rgba(255, 255, 255, 0.3);
@@ -29,9 +24,7 @@
   --color-theme-border: #bfdbfe;
   */
 
-  /* -----------------------------------------
-     🌙 深色模式（GitHub 官方深色风）
-     ----------------------------------------- */
+  /* 🌙 深色模式：GitHub 官方深色风 */
   --color-dark-bg: #0d1117;                     /* 背景：深空灰 */
   --color-dark-card: #161b22;                   /* 卡片：稍微亮一点的深灰 */
   --color-dark-title: #c9d1d9;                  /* 标题：亮白 */
@@ -41,19 +34,27 @@
 }
 
 /* =========================================
-   全局底色与文字
+   🌍 全局基础样式
    ========================================= */
 body {
   @apply bg-theme-bg text-theme-text dark:bg-dark-bg dark:text-dark-text;
 }
 
-/* 文章排版 */
+/* =========================================
+   📝 文章排版基础 (.prose)
+   ========================================= */
 .prose {
   @apply text-theme-text dark:text-dark-text;
 }
+
+/* 标题基础样式及去除多余下划线 */
 .prose h1, .prose h2, .prose h3, .prose h4 {
   @apply text-theme-title dark:text-dark-title;
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
+
+/* 正文链接样式 */
 .prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
   @apply text-[#0969da] dark:text-dark-link hover:underline transition-colors;
 }
@@ -70,12 +71,11 @@ body {
 }
 
 /* =========================================
-   公共组件
+   🧩 公共组件
    ========================================= */
 
-/* 卡片背景（GitHub 纯白实底） */
+/* 卡片背景 */
 .card-glass {
-  /* 高度自适应内容 */
   @apply ring-1 ring-theme-border w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8;
   background-color: var(--color-theme-card);
 }
@@ -98,16 +98,11 @@ body {
   @apply border-dashed border-theme-border dark:border-dark-border;
 }
 
-
-/* =========================================================================
-   👇 下面是新增的增强样式（折叠面板 & 列表小圆点）
-   ========================================================================= */
-
 /* =========================================
-   📝 1. 美化折叠面板 (details / summary)
+   ✨ 深度美化区
    ========================================= */
 
-/* 整体外框（带左侧蓝色粗线） */
+/* 1. 折叠面板 (details / summary) */
 .prose details {
   @apply bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-xl mb-4 overflow-hidden transition-all;
   border-left: 4px solid #0969da; 
@@ -115,17 +110,22 @@ body {
 .dark .prose details {
   border-left-color: #58a6ff;
 }
-
-/* 标题区域 (点击的那一行) */
 .prose details summary {
-  @apply px-4 py-3 font-semibold text-[#24292f] dark:text-[#c9d1d9] cursor-pointer select-none flex items-center list-none;
+  @apply px-4 py-3 font-semibold cursor-pointer select-none flex items-center list-none transition-colors;
+  color: #24292f !important; /* 👈 折叠标题颜色（可改） */
 }
-/* 隐藏浏览器默认的黑色小三角 */
+.dark .prose details summary {
+  color: #c9d1d9 !important;
+}
+.prose details summary:hover {
+  color: #0969da !important;
+}
+.dark .prose details summary:hover {
+  color: #58a6ff !important;
+}
 .prose details summary::-webkit-details-marker {
   display: none;
 }
-
-/* 自定义的蓝色小三角（默认向右） */
 .prose details summary::before {
   content: '';
   display: inline-block;
@@ -140,50 +140,87 @@ body {
 .dark .prose details summary::before {
   border-left-color: #58a6ff;
 }
-
-/* 展开时，小三角向下旋转 */
 .prose details[open] summary::before {
   transform: rotate(90deg);
 }
-
-/* 内容区域 */
 .prose details > *:not(summary) {
   @apply px-4 pb-4 text-[#57606a] dark:text-[#8b949e] text-sm;
 }
-
-/* 展开后的内部虚线分割 */
 .prose details[open] > *:not(summary) {
   border-top: 1px dashed #d0d7de;
   padding-top: 12px;
   margin-top: 4px;
 }
-.dark .prose details[open] > *:not(summary) {
+.dark .prose details[open] > *:not(:summary) {
   border-top-color: #30363d;
 }
 
-
-/* =========================================
-   📝 2. 美化无序列表（小圆点）
-   ========================================= */
-
-/* 调整列表的整体缩进 */
+/* 2. 无序列表（极简小圆点） */
 .prose ul {
-  padding-left: 1.25em;
+  list-style-type: none !important;
+  padding-left: 0 !important;
 }
-
-/* 调整每一项的行距，让上下更透气 */
-.prose li {
+.prose ul > li {
+  position: relative;
+  padding-left: 1.2em;
   margin-top: 0.4em;
   margin-bottom: 0.4em;
 }
-
-/* 把死黑的圆点变成高级的浅灰色小圆点 */
-.prose ul > li::marker {
-  color: #8c959f; /* GitHub 风格的辅助灰色 */
-  font-size: 1.1em; 
+.prose ul > li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  top: -0.1em;
+  color: #8c959f;
+  font-size: 1.5em;
+  line-height: 1;
+}
+.dark .prose ul > li::before {
+  color: #6e7681;
 }
 
-/* 暗黑模式下，圆点变成暗灰色，不刺眼 */
-.dark .prose ul > li::marker {
-  color: #6e7681; 
+/* 3. Markdown 表格（斑马纹 + 移动端完美横滑） */
+.prose table {
+  @apply w-full text-sm mb-8 border-collapse;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+}
+.dark .prose table {
+  border-color: #30363d;
+}
+.prose thead, .prose tbody {
+  display: table;
+  width: 100%;
+  min-width: max-content;
+}
+.prose thead {
+  @apply bg-[#f6f8fa] dark:bg-[#161b22];
+}
+.prose th {
+  @apply px-4 py-3 font-semibold text-left text-[#24292f] dark:text-[#c9d1d9];
+  border-bottom: 2px solid #d0d7de;
+  white-space: nowrap;
+}
+.dark .prose th {
+  border-bottom-color: #30363d;
+}
+.prose td {
+  @apply px-4 py-3 text-[#57606a] dark:text-[#8b949e];
+  border-bottom: 1px solid #d0d7de;
+  white-space: nowrap;
+}
+.dark .prose td {
+  border-bottom-color: #30363d;
+}
+.prose tbody tr:last-child td {
+  border-bottom: none;
+}
+.prose tbody tr:nth-child(even) {
+  @apply bg-[#f6f8fa] dark:bg-[#21262d];
+}
+.prose tbody tr:hover {
+  @apply bg-[#eaeef2] dark:bg-[#30363d];
 }
