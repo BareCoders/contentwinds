@@ -41,36 +41,6 @@ body {
 }
 
 /* =========================================
-   📝 文章排版基础 (.prose)
-   ========================================= */
-.prose {
-  @apply text-theme-text dark:text-dark-text;
-}
-
-/* 标题基础样式及去除多余下划线 */
-.prose h1, .prose h2, .prose h3, .prose h4 {
-  @apply text-theme-title dark:text-dark-title;
-  text-decoration: none !important;
-  border-bottom: none !important;
-}
-
-/* 正文链接样式 */
-.prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
-  @apply text-[#0969da] dark:text-dark-link hover:underline transition-colors;
-}
-
-/* 代码块 */
-.prose pre {
-  @apply bg-[#f6f8fa] border border-theme-border text-theme-title;
-}
-.dark .prose pre {
-  @apply bg-[#161b22] border-dark-border text-dark-text;
-}
-.dark .prose pre code {
-  @apply text-dark-text;
-}
-
-/* =========================================
    🧩 公共组件
    ========================================= */
 
@@ -99,16 +69,79 @@ body {
 }
 
 /* =========================================
-   ✨ 深度美化区
+   📝 文章排版核心
+   ========================================= */
+.prose {
+  @apply text-theme-text dark:text-dark-text;
+}
+
+/* 🚫 1. 彻底去除标题下划线（暴力拦截所有画线方式） */
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  @apply text-theme-title dark:text-dark-title;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  background-image: none !important;
+}
+.prose h1 a, .prose h2 a, .prose h3 a, .prose h4 a, .prose h5 a, .prose h6 a {
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+/* 正文链接样式 */
+.prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
+  @apply text-[#0969da] dark:text-dark-link hover:underline transition-colors;
+}
+
+/* 代码块 */
+.prose pre {
+  @apply bg-[#f6f8fa] border border-theme-border text-theme-title;
+}
+.dark .prose pre {
+  @apply bg-[#161b22] border-dark-border text-dark-text;
+}
+.dark .prose pre code {
+  @apply text-dark-text;
+}
+
+/* 🚫 2. 彻底重置无序列表（干掉默认小黑点，启用极简灰点） */
+.prose ul {
+  list-style-type: none !important; /* 暴力去掉默认黑点 */
+  padding-left: 0 !important;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.prose ul > li {
+  position: relative;
+  padding-left: 1.5em;
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+/* 自己画一个极简的小灰点 */
+.prose ul > li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #8c959f;
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+.dark .prose ul > li::before {
+  color: #6e7681;
+}
+
+/* =========================================
+   ✨ 高级组件区
    ========================================= */
 
-/* 👇 1. 折叠面板基础变量 (Bootstrap 风格) */
+/* 👇 1. 折叠面板基础变量 */
 :root {
-  --accordion-bg: #f8f9fa;          /* 背景色 */
-  --accordion-border: #dee2e6;      /* 边框颜色 */
-  --accordion-primary: #0d6efd;     /* 默认左侧高亮条（蓝） */
-  --accordion-title: #212529;       /* 标题文字颜色 */
-  --accordion-content: #495057;     /* 展开内容的文字颜色 */
+  --accordion-bg: #f8f9fa;          
+  --accordion-border: #dee2e6;      
+  --accordion-primary: #0d6efd;     
+  --accordion-title: #212529;       
+  --accordion-content: #495057;     
 }
 html.dark {
   --accordion-bg: #21262d;          
@@ -183,8 +216,22 @@ html.dark .prose details summary:hover {
   border-top: 1px dashed var(--accordion-border);
 }
 
+/* 👇 2. Bootstrap 全家桶配色 (11色) */
+/* 主要/蓝色 (Primary) */
+.prose details.details-primary { border-left-color: #0d6efd; }
+.prose details.details-primary summary::before { border-left-color: #0d6efd; }
+.prose details.details-primary summary:hover { color: #0d6efd !important; }
+html.dark .prose details.details-primary { border-left-color: #58a6ff; }
+html.dark .prose details.details-primary summary::before { border-left-color: #58a6ff; }
+html.dark .prose details.details-primary summary:hover { color: #58a6ff !important; }
 
-/* 👇 2. 自定义折叠面板颜色 (Bootstrap 风格) */
+/* 次要/灰色 (Secondary) */
+.prose details.details-secondary { border-left-color: #6c757d; }
+.prose details.details-secondary summary::before { border-left-color: #6c757d; }
+.prose details.details-secondary summary:hover { color: #6c757d !important; }
+html.dark .prose details.details-secondary { border-left-color: #8b949e; }
+html.dark .prose details.details-secondary summary::before { border-left-color: #8b949e; }
+html.dark .prose details.details-secondary summary:hover { color: #8b949e !important; }
 
 /* 成功/绿色 (Success) */
 .prose details.details-success { border-left-color: #198754; }
@@ -218,28 +265,48 @@ html.dark .prose details.details-info { border-left-color: #58a6ff; }
 html.dark .prose details.details-info summary::before { border-left-color: #58a6ff; }
 html.dark .prose details.details-info summary:hover { color: #58a6ff !important; }
 
+/* 浅色/白色 (Light) */
+.prose details.details-light { border-left-color: #adb5bd; }
+.prose details.details-light summary::before { border-left-color: #adb5bd; }
+.prose details.details-light summary:hover { color: #495057 !important; }
+html.dark .prose details.details-light { border-left-color: #c9d1d9; }
+html.dark .prose details.details-light summary::before { border-left-color: #c9d1d9; }
+html.dark .prose details.details-light summary:hover { color: #c9d1d9 !important; }
 
-/* 👇 3. 无序列表（Bootstrap 小圆点风格） */
-.prose ul {
-  padding-left: 1.5rem;
-  list-style-type: disc;
-}
+/* 深色/黑色 (Dark) */
+.prose details.details-dark { border-left-color: #212529; }
+.prose details.details-dark summary::before { border-left-color: #212529; }
+.prose details.details-dark summary:hover { color: #212529 !important; }
+html.dark .prose details.details-dark { border-left-color: #8b949e; }
+html.dark .prose details.details-dark summary::before { border-left-color: #8b949e; }
+html.dark .prose details.details-dark summary:hover { color: #8b949e !important; }
 
-.prose li {
-  margin-top: 0.4em;
-  margin-bottom: 0.4em;
-}
+/* 紫色扩展 (Purple) */
+.prose details.details-purple { border-left-color: #8b5cf6; }
+.prose details.details-purple summary::before { border-left-color: #8b5cf6; }
+.prose details.details-purple summary:hover { color: #8b5cf6 !important; }
+html.dark .prose details.details-purple { border-left-color: #a78bfa; }
+html.dark .prose details.details-purple summary::before { border-left-color: #a78bfa; }
+html.dark .prose details.details-purple summary:hover { color: #a78bfa !important; }
 
-.prose ul > li::marker {
-  color: var(--color-theme-text); 
-}
+/* 粉色扩展 (Pink) */
+.prose details.details-pink { border-left-color: #ec4899; }
+.prose details.details-pink summary::before { border-left-color: #ec4899; }
+.prose details.details-pink summary:hover { color: #ec4899 !important; }
+html.dark .prose details.details-pink { border-left-color: #f472b6; }
+html.dark .prose details.details-pink summary::before { border-left-color: #f472b6; }
+html.dark .prose details.details-pink summary:hover { color: #f472b6 !important; }
 
-html.dark .prose ul > li::marker {
-  color: var(--color-dark-text);
-}
+/* 橙色扩展 (Orange) */
+.prose details.details-orange { border-left-color: #fd7e14; }
+.prose details.details-orange summary::before { border-left-color: #fd7e14; }
+.prose details.details-orange summary:hover { color: #fd7e14 !important; }
+html.dark .prose details.details-orange { border-left-color: #f0883e; }
+html.dark .prose details.details-orange summary::before { border-left-color: #f0883e; }
+html.dark .prose details.details-orange summary:hover { color: #f0883e !important; }
 
 
-/* 👇 4. Markdown 表格（斑马纹 + 手机横滑） */
+/* 👇 3. Markdown 表格（斑马纹 + 手机横滑） */
 .prose table {
   @apply w-full text-sm mb-8 border-collapse;
   display: block;
@@ -287,4 +354,4 @@ html.dark .prose td {
 }
 .prose tbody tr:hover {
   @apply bg-[#eaeef2] dark:bg-[#30363d];
-}
+   }
