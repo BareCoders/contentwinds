@@ -75,7 +75,7 @@ body {
 
 /* 卡片背景（GitHub 纯白实底） */
 .card-glass {
-  /* 👇 这里去掉了 min-h-[calc(100vh-100px)]，让高度自适应内容 */
+  /* 高度自适应内容 */
   @apply ring-1 ring-theme-border w-full max-w-4xl mx-auto px-4 sm:px-8 py-6 sm:py-8 rounded-2xl shadow-sm mt-4 mb-8;
   background-color: var(--color-theme-card);
 }
@@ -96,4 +96,94 @@ body {
 /* 虚线分割线 */
 .divider-dashed {
   @apply border-dashed border-theme-border dark:border-dark-border;
+}
+
+
+/* =========================================================================
+   👇 下面是新增的增强样式（折叠面板 & 列表小圆点）
+   ========================================================================= */
+
+/* =========================================
+   📝 1. 美化折叠面板 (details / summary)
+   ========================================= */
+
+/* 整体外框（带左侧蓝色粗线） */
+.prose details {
+  @apply bg-[#f6f8fa] dark:bg-[#161b22] border border-[#d0d7de] dark:border-[#30363d] rounded-xl mb-4 overflow-hidden transition-all;
+  border-left: 4px solid #0969da; 
+}
+.dark .prose details {
+  border-left-color: #58a6ff;
+}
+
+/* 标题区域 (点击的那一行) */
+.prose details summary {
+  @apply px-4 py-3 font-semibold text-[#24292f] dark:text-[#c9d1d9] cursor-pointer select-none flex items-center list-none;
+}
+/* 隐藏浏览器默认的黑色小三角 */
+.prose details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 自定义的蓝色小三角（默认向右） */
+.prose details summary::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid #0969da;
+  margin-right: 10px;
+  transition: transform 0.2s ease;
+}
+.dark .prose details summary::before {
+  border-left-color: #58a6ff;
+}
+
+/* 展开时，小三角向下旋转 */
+.prose details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* 内容区域 */
+.prose details > *:not(summary) {
+  @apply px-4 pb-4 text-[#57606a] dark:text-[#8b949e] text-sm;
+}
+
+/* 展开后的内部虚线分割 */
+.prose details[open] > *:not(summary) {
+  border-top: 1px dashed #d0d7de;
+  padding-top: 12px;
+  margin-top: 4px;
+}
+.dark .prose details[open] > *:not(summary) {
+  border-top-color: #30363d;
+}
+
+
+/* =========================================
+   📝 2. 美化无序列表（小圆点）
+   ========================================= */
+
+/* 调整列表的整体缩进 */
+.prose ul {
+  padding-left: 1.25em;
+}
+
+/* 调整每一项的行距，让上下更透气 */
+.prose li {
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+}
+
+/* 把死黑的圆点变成高级的浅灰色小圆点 */
+.prose ul > li::marker {
+  color: #8c959f; /* GitHub 风格的辅助灰色 */
+  font-size: 1.1em; 
+}
+
+/* 暗黑模式下，圆点变成暗灰色，不刺眼 */
+.dark .prose ul > li::marker {
+  color: #6e7681; 
 }
