@@ -49,7 +49,10 @@ const prevPage = () => {
   <!-- 1. 加上 flex flex-col，让卡片变成弹性上下布局 -->
   <div class="card-glass flex flex-col">
     
-    <h1 class="text-3xl font-bold mb-6 text-theme-title dark:text-dark-title">博客文章</h1>
+    <!-- 👇 协调的虚线分割线：不加负边距，宽度自然受限于卡片内边距 -->
+    <div class="pb-4 mb-6 border-b divider-dashed">
+      <h1 class="text-3xl font-bold text-theme-title dark:text-dark-title">博客文章</h1>
+    </div>
 
     <div v-if="!paginatedPosts || paginatedPosts.length === 0" class="text-theme-text dark:text-dark-text">
       暂时还没有文章哦~
@@ -60,15 +63,14 @@ const prevPage = () => {
       
       <!-- 文章列表区域 -->
       <div class="space-y-0">
-        <!-- 👇 核心修改：深色模式改用 5% 透明度的白色，对比极其明显 -->
+        <!-- 斑马线：第一行有背景色，后续交替 -->
         <NuxtLink 
           v-for="(post, index) in paginatedPosts" 
           :key="post.path" 
           :to="post.path"
           class="group flex items-center justify-between py-4 px-4 -mx-4 border-b divider-dashed last:border-0 transition-colors rounded-sm hover:!bg-[#eaeef2] dark:hover:!bg-white/10"
-          :class="index % 2 === 1 ? 'bg-[#f6f8fa] dark:bg-white/5' : 'bg-transparent'"
+          :class="index % 2 === 0 ? 'bg-[#f6f8fa] dark:bg-white/5' : 'bg-transparent'"
         >
-          <!-- 标题：直接使用经典的 GitHub 链接蓝，悬停时出现下划线 -->
           <span class="text-base font-medium text-[#0969da] dark:text-dark-link group-hover:underline decoration-1 underline-offset-4">
             {{ post.title }}
           </span>
@@ -81,7 +83,6 @@ const prevPage = () => {
 
       <!-- 3. 翻页按钮区域：把 mt-8 改成 mt-auto，强行推到底部 -->
       <div class="flex items-center justify-between mt-auto pt-6 border-t divider-dashed">
-        <!-- 按钮背景使用主题颜色，深色模式下会自动变暗，绝不刺眼 -->
         <button 
           @click="prevPage" 
           :disabled="currentPage === 1"
