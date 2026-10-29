@@ -46,43 +46,43 @@ const prevPage = () => {
 </script>
 
 <template>
-  <!-- 1. 加上 flex flex-col，让卡片变成弹性上下布局 -->
-  <div class="card-glass flex flex-col">
+  <!-- 👇 核心修改：加上 overflow-hidden，保护外层卡片的圆角不被全宽斑马线破坏 -->
+  <div class="card-glass flex flex-col overflow-hidden">
     
-    <!-- 👇 优化后的标题：w-fit 让虚线只有文字那么宽，pb-2 让线贴近文字 -->
-    <div class="w-fit pb-2 mb-6 border-b divider-dashed">
+    <!-- 标题虚线：保持简短克制 -->
+    <div class="w-fit pb-2 mb-6 ml-4 sm:ml-8 border-b divider-dashed">
       <h1 class="text-3xl font-bold text-theme-title dark:text-dark-title">博客文章</h1>
     </div>
 
-    <div v-if="!paginatedPosts || paginatedPosts.length === 0" class="text-theme-text dark:text-dark-text">
+    <div v-if="!paginatedPosts || paginatedPosts.length === 0" class="text-theme-text dark:text-dark-text px-4 sm:px-8">
       暂时还没有文章哦~
     </div>
 
-    <!-- 2. 加上 flex-grow flex flex-col，让它撑满剩余空间 -->
     <div v-else class="flex-grow flex flex-col">
       
-      <!-- 文章列表区域 -->
-      <div class="space-y-0">
-        <!-- 👇 优化后的列表：去掉负边距，加上 rounded-lg，斑马线和悬停都有圆角收缩感 -->
+      <!-- 👇 恢复全宽偏移：-mx-4 sm:-mx-8 让斑马线撑满整个卡片 -->
+      <div class="space-y-0 -mx-4 sm:-mx-8">
         <NuxtLink 
           v-for="(post, index) in paginatedPosts" 
           :key="post.path" 
           :to="post.path"
-          class="group flex items-center justify-between py-4 px-4 border-b divider-dashed last:border-0 transition-colors rounded-lg hover:!bg-[#eaeef2] dark:hover:!bg-white/10"
-          :class="index % 2 === 0 ? 'bg-[#f6f8fa] dark:bg-white/5' : 'bg-transparent'"
+          class="group flex items-center justify-between py-4 px-4 sm:px-8 border-b divider-dashed last:border-0 transition-colors hover:!bg-[#eaeef2] dark:hover:!bg-white/10"
+          :class="index % 2 === 0 ? 'bg-[#f6f8fa] dark:bg-[#21262d]' : 'bg-transparent'"
         >
-          <span class="text-base font-medium text-[#0969da] dark:text-dark-link group-hover:underline decoration-1 underline-offset-4">
+          <!-- 👇 truncate 防止标题太长换行，pr-4 留出和日期的间距 -->
+          <span class="text-base font-medium text-[#0969da] dark:text-dark-link group-hover:underline decoration-1 underline-offset-4 truncate pr-4">
             {{ post.title }}
           </span>
           
-          <span class="text-xs text-theme-text/70 dark:text-dark-text/70 whitespace-nowrap ml-4">
+          <!-- 👇 shrink-0 保证日期永远不被挤压 -->
+          <span class="text-xs text-theme-text/70 dark:text-dark-text/70 whitespace-nowrap shrink-0">
             {{ post.displayDate }}
           </span>
         </NuxtLink>
       </div>
 
-      <!-- 3. 翻页按钮区域：把 mt-8 改成 mt-auto，强行推到底部 -->
-      <div class="flex items-center justify-between mt-auto pt-6 border-t divider-dashed">
+      <!-- 翻页按钮区域 -->
+      <div class="flex items-center justify-between mt-auto pt-6 mx-4 sm:mx-8 border-t divider-dashed">
         <button 
           @click="prevPage" 
           :disabled="currentPage === 1"
