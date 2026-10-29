@@ -60,12 +60,13 @@ const prevPage = () => {
       
       <!-- 文章列表区域 -->
       <div class="space-y-0">
-        <!-- 核心修改：改成 NuxtLink 包裹整行，点击体验更好 -->
+        <!-- 👇 核心修改：增加 index，并绑定斑马线背景 -->
         <NuxtLink 
-          v-for="post in paginatedPosts" 
+          v-for="(post, index) in paginatedPosts" 
           :key="post.path" 
           :to="post.path"
-          class="group flex items-center justify-between py-4 border-b divider-dashed last:border-0 transition-colors px-2 -mx-2 rounded-lg hover:bg-[#f6f8fa] dark:hover:bg-[#161b22]"
+          class="group flex items-center justify-between py-4 px-4 -mx-4 border-b divider-dashed last:border-0 transition-colors rounded-sm hover:!bg-[#eaeef2] dark:hover:!bg-[#21262d]"
+          :class="index % 2 === 1 ? 'bg-[#f6f8fa]/60 dark:bg-[#161b22]/60' : 'bg-transparent'"
         >
           <!-- 标题：直接使用经典的 GitHub 链接蓝，悬停时出现下划线 -->
           <span class="text-base font-medium text-[#0969da] dark:text-dark-link group-hover:underline decoration-1 underline-offset-4">
