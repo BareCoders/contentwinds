@@ -69,13 +69,13 @@ body {
 }
 
 /* =========================================
-   📝 文章排版核心（暴力修复区）
+   📝 文章排版核心
    ========================================= */
 .prose {
   @apply text-theme-text dark:text-dark-text;
 }
 
-/* 🚫 1. 终极灭杀标题下划线 */
+/* 🚫 1. 彻底灭杀标题下划线 */
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6,
 .prose h1 a, .prose h2 a, .prose h3 a, .prose h4 a, .prose h5 a, .prose h6 a {
   @apply text-theme-title dark:text-dark-title;
@@ -85,15 +85,21 @@ body {
   box-shadow: none !important;
   background-image: none !important;
 }
-/* 干掉可能由伪元素画出来的线 */
 .prose h1::after, .prose h2::after, .prose h3::after, .prose h4::after, .prose h5::after, .prose h6::after {
   display: none !important;
   content: none !important;
 }
 
-/* 正文链接样式 */
-.prose a:not(h2 a, h3 a, h4 a, h5 a, h6 a, button a) {
-  @apply text-[#0969da] dark:text-dark-link hover:underline transition-colors;
+/* 🚫 2. 彻底去掉正文所有链接的下划线 */
+.prose a {
+  @apply text-[#0969da] dark:text-dark-link transition-colors;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  background-image: none !important;
+}
+.prose a:hover {
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 /* 代码块 */
@@ -107,7 +113,7 @@ body {
   @apply text-dark-text;
 }
 
-/* 🚫 2. 终极灭杀默认小圆点（并替换为自定义小灰点） */
+/* 🚫 3. 彻底重置无序列表（干掉默认小黑点，启用极简灰点） */
 .prose ul {
   list-style-type: none !important;
   list-style: none !important;
@@ -359,4 +365,4 @@ html.dark .prose td {
 }
 .prose tbody tr:hover {
   @apply bg-[#eaeef2] dark:bg-[#30363d];
-}
+   }
