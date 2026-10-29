@@ -9,13 +9,13 @@
    ========================================= */
 @theme {
   /* ☀️ 默认主题：GitHub 官方浅色风 */
-  --color-theme-bg: #f6f8fa;                    /* 背景：极浅灰 */
-  --color-theme-card: #ffffff;                  /* 卡片：纯白 */
-  --color-theme-title: #24292f;                 /* 标题：深灰黑 */
-  --color-theme-text: #57606a;                  /* 正文：中灰色 */
-  --color-theme-border: #d0d7de;                /* 边框线：浅灰 */
+  --color-theme-bg: #f6f8fa;                    
+  --color-theme-card: #ffffff;                  
+  --color-theme-title: #24292f;                 
+  --color-theme-text: #57606a;                  
+  --color-theme-border: #d0d7de;                
 
-  /* 🧊 备选主题：冰蓝磨砂风（想换回冰蓝，把上面5行注释，取消下面5行注释） */
+  /* 🧊 备选主题：冰蓝磨砂风 */
   /*
   --color-theme-bg: #dbeafe;
   --color-theme-card: rgba(255, 255, 255, 0.3);
@@ -25,12 +25,12 @@
   */
 
   /* 🌙 深色模式：GitHub 官方深色风 */
-  --color-dark-bg: #0d1117;                     /* 背景：深空灰 */
-  --color-dark-card: #161b22;                   /* 卡片：稍微亮一点的深灰 */
-  --color-dark-title: #c9d1d9;                  /* 标题：亮白 */
-  --color-dark-text: #8b949e;                   /* 正文：中灰 */
-  --color-dark-border: #30363d;                 /* 边框：暗灰 */
-  --color-dark-link: #58a6ff;                   /* 链接：亮蓝 */
+  --color-dark-bg: #0d1117;                     
+  --color-dark-card: #161b22;                   
+  --color-dark-title: #c9d1d9;                  
+  --color-dark-text: #8b949e;                   
+  --color-dark-border: #30363d;                 
+  --color-dark-link: #58a6ff;                   
 }
 
 /* =========================================
@@ -113,7 +113,7 @@ body {
   @apply text-dark-text;
 }
 
-/* 🚫 3. 彻底重置无序列表（干掉默认小黑点，启用极简灰点） */
+/* 🚫 3. 彻底灭杀无序列表的所有圆点和缩进（极致极简） */
 .prose ul {
   list-style-type: none !important;
   list-style: none !important;
@@ -124,26 +124,20 @@ body {
   list-style-type: none !important;
   list-style: none !important;
   position: relative !important;
-  padding-left: 1.5em !important;
+  padding-left: 0 !important; /* 彻底取消左侧留白 */
   margin-top: 0.4em;
   margin-bottom: 0.4em;
 }
+/* 隐藏系统强行加的 ::marker 点 */
 .prose ul > li::marker {
   display: none !important;
   content: none !important;
   color: transparent !important;
 }
+/* 干掉之前自定义的圆点 */
 .prose ul > li::before {
-  content: "•" !important;
-  position: absolute !important;
-  left: 0 !important;
-  top: 0 !important;
-  color: #8c959f !important;
-  font-size: 1.2em !important;
-  line-height: 1.5 !important;
-}
-.dark .prose ul > li::before {
-  color: #6e7681 !important;
+  display: none !important;
+  content: none !important;
 }
 
 /* =========================================
@@ -197,7 +191,6 @@ html.dark .prose details summary:hover {
   background-color: rgba(255, 255, 255, 0.03);
 }
 
-/* 干掉系统自带的折叠小三角 */
 .prose details summary::-webkit-details-marker {
   display: none !important;
 }
@@ -206,7 +199,6 @@ html.dark .prose details summary:hover {
   content: none !important;
 }
 
-/* 自定义小三角 */
 .prose details summary::before {
   content: '';
   display: inline-block;
@@ -219,19 +211,16 @@ html.dark .prose details summary:hover {
   transition: transform 0.2s ease;
 }
 
-/* 展开时小三角向下 */
 .prose details[open] summary::before {
   transform: rotate(90deg);
 }
 
-/* 内容区域 */
 .prose details > *:not(summary) {
   padding: 16px;
   color: var(--accordion-content);
   font-size: 0.95rem;
 }
 
-/* 展开后的顶部虚线分割线 */
 .prose details[open] > *:not(summary) {
   border-top: 1px dashed var(--accordion-border);
 }
@@ -315,79 +304,53 @@ html.dark .prose details.details-orange summary::before { border-left-color: #f0
 html.dark .prose details.details-orange summary:hover { color: #f0883e !important; }
 
 
-/* 👇 4. Markdown 表格（终极修复版：竖线 + 完美横滑 + 斑马纹） */
+/* 👇 4. Markdown 表格（终极修复版：表头同步滑动 + 竖线） */
 .prose table {
   width: 100%;
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  border-collapse: collapse; /* 合并边框，让竖线更清晰 */
-  border-spacing: 0;
+  border-collapse: collapse; 
+  margin-bottom: 2rem;
   border: 1px solid var(--color-theme-border);
   border-radius: 8px;
-  margin-bottom: 2rem;
 }
 html.dark .prose table {
   border-color: var(--color-dark-border);
 }
 
-/* 核心修复：强制表头和内容撑开，并保持同步滑动 */
-.prose thead, .prose tbody {
-  display: table;
-  width: 100%;
-  min-width: max-content; /* 强制让所有列不被挤压 */
-  border-collapse: collapse;
+.prose thead {
+  display: table-header-group; 
+}
+.prose tbody {
+  display: table-row-group;
+}
+.prose tr {
+  display: table-row;
 }
 
-/* 表头样式 */
+.prose th, .prose td {
+  display: table-cell;
+  white-space: nowrap; 
+  min-width: 140px; 
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid var(--color-theme-border); 
+}
+html.dark .prose th, html.dark .prose td {
+  border-color: var(--color-dark-border);
+}
+
 .prose th {
   background-color: #f6f8fa;
   font-weight: 600;
-  text-align: left;
   color: var(--color-theme-title);
-  white-space: nowrap;
-  padding: 12px 16px;
-  /* 👇 加上右边线 */
-  border-right: 1px solid var(--color-theme-border);
-  border-bottom: 2px solid var(--color-theme-border);
-  /* 👇 强制最小宽度，避免文字挤在一起 */
-  min-width: 120px; 
 }
 html.dark .prose th {
   background-color: #161b22;
   color: var(--color-dark-title);
-  border-right-color: var(--color-dark-border);
-  border-bottom-color: var(--color-dark-border);
 }
 
-/* 单元格样式 */
-.prose td {
-  text-align: left;
-  color: var(--color-theme-text);
-  white-space: nowrap;
-  padding: 12px 16px;
-  /* 👇 加上右边线 */
-  border-right: 1px solid var(--color-theme-border);
-  border-bottom: 1px solid var(--color-theme-border);
-  min-width: 120px;
-}
-html.dark .prose td {
-  color: var(--color-dark-text);
-  border-right-color: var(--color-dark-border);
-  border-bottom-color: var(--color-dark-border);
-}
-
-/* 去掉最右边一列的右边线，防止和表格外边框重叠 */
-.prose th:last-child, .prose td:last-child {
-  border-right: none;
-}
-
-/* 去掉最后一行内容的下边线 */
-.prose tbody tr:last-child td {
-  border-bottom: none;
-}
-
-/* 斑马纹背景（保留色差） */
 .prose tbody tr:nth-child(even) {
   background-color: #f6f8fa;
 }
@@ -395,7 +358,6 @@ html.dark .prose tbody tr:nth-child(even) {
   background-color: #21262d;
 }
 
-/* 鼠标悬停/手指点按时的高亮 */
 .prose tbody tr:hover {
   background-color: #eaeef2;
 }
