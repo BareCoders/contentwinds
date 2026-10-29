@@ -24,7 +24,7 @@ const sortedPosts = computed(() => {
 
 // ================= 分页逻辑 数字 首页显示文章数量=================
 const currentPage = ref(1)
-const pageSize = 12
+const pageSize = 15
 
 const paginatedPosts = computed(() => {
   const start = (currentPage.value - 1) * pageSize
