@@ -5,7 +5,7 @@
 @source "../../../content/**/*";
 
 /* =========================================
-   🎨 色彩中心（修改这里即可一键换肤）
+   🎨 色彩中心
    ========================================= */
 @theme {
   /* ☀️ 默认主题：GitHub 官方浅色风 */
@@ -15,7 +15,7 @@
   --color-theme-text: #57606a;                  
   --color-theme-border: #d0d7de;                
 
-  /* 🧊 备选主题：冰蓝磨砂风（想换回冰蓝，把上面5行注释，取消下面5行注释） */
+  /* 🧊 备选主题：冰蓝磨砂风 */
   /*
   --color-theme-bg: #dbeafe;
   --color-theme-card: rgba(255, 255, 255, 0.3);
@@ -24,7 +24,7 @@
   --color-theme-border: #bfdbfe;
   */
 
-  /* 🌙 深色模式：GitHub 官方深色风 */
+  /* 🌙 深色模式 */
   --color-dark-bg: #0d1117;                     
   --color-dark-card: #161b22;                   
   --color-dark-title: #c9d1d9;                  
@@ -69,23 +69,26 @@ body {
 }
 
 /* =========================================
-   📝 文章排版核心
+   📝 文章排版核心（暴力修复区）
    ========================================= */
 .prose {
   @apply text-theme-text dark:text-dark-text;
 }
 
-/* 🚫 1. 彻底去除标题下划线（暴力拦截所有画线方式） */
-.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+/* 🚫 1. 终极灭杀标题下划线 */
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6,
+.prose h1 a, .prose h2 a, .prose h3 a, .prose h4 a, .prose h5 a, .prose h6 a {
   @apply text-theme-title dark:text-dark-title;
   text-decoration: none !important;
+  text-decoration-line: none !important;
   border-bottom: none !important;
   box-shadow: none !important;
   background-image: none !important;
 }
-.prose h1 a, .prose h2 a, .prose h3 a, .prose h4 a, .prose h5 a, .prose h6 a {
-  text-decoration: none !important;
-  border-bottom: none !important;
+/* 干掉可能由伪元素画出来的线 */
+.prose h1::after, .prose h2::after, .prose h3::after, .prose h4::after, .prose h5::after, .prose h6::after {
+  display: none !important;
+  content: none !important;
 }
 
 /* 正文链接样式 */
@@ -104,31 +107,39 @@ body {
   @apply text-dark-text;
 }
 
-/* 🚫 2. 彻底重置无序列表（干掉默认小黑点，启用极简灰点） */
+/* 🚫 2. 终极灭杀默认小圆点（并替换为自定义小灰点） */
 .prose ul {
-  list-style-type: none !important; /* 暴力去掉默认黑点 */
+  list-style-type: none !important;
+  list-style: none !important;
   padding-left: 0 !important;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  margin-left: 0 !important;
 }
 .prose ul > li {
-  position: relative;
-  padding-left: 1.5em;
+  list-style-type: none !important;
+  list-style: none !important;
+  position: relative !important;
+  padding-left: 1.5em !important;
   margin-top: 0.4em;
   margin-bottom: 0.4em;
 }
+/* 隐藏系统强行加的 ::marker 点 */
+.prose ul > li::marker {
+  display: none !important;
+  content: none !important;
+  color: transparent !important;
+}
 /* 自己画一个极简的小灰点 */
 .prose ul > li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #8c959f;
-  font-size: 1.2em;
-  line-height: 1.5;
+  content: "•" !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  color: #8c959f !important;
+  font-size: 1.2em !important;
+  line-height: 1.5 !important;
 }
 .dark .prose ul > li::before {
-  color: #6e7681;
+  color: #6e7681 !important;
 }
 
 /* =========================================
@@ -182,8 +193,13 @@ html.dark .prose details summary:hover {
   background-color: rgba(255, 255, 255, 0.03);
 }
 
+/* 干掉系统自带的折叠小三角 */
 .prose details summary::-webkit-details-marker {
-  display: none;
+  display: none !important;
+}
+.prose details summary::marker {
+  display: none !important;
+  content: none !important;
 }
 
 /* 自定义小三角 */
@@ -217,7 +233,6 @@ html.dark .prose details summary:hover {
 }
 
 /* 👇 2. Bootstrap 全家桶配色 (11色) */
-/* 主要/蓝色 (Primary) */
 .prose details.details-primary { border-left-color: #0d6efd; }
 .prose details.details-primary summary::before { border-left-color: #0d6efd; }
 .prose details.details-primary summary:hover { color: #0d6efd !important; }
@@ -225,7 +240,6 @@ html.dark .prose details.details-primary { border-left-color: #58a6ff; }
 html.dark .prose details.details-primary summary::before { border-left-color: #58a6ff; }
 html.dark .prose details.details-primary summary:hover { color: #58a6ff !important; }
 
-/* 次要/灰色 (Secondary) */
 .prose details.details-secondary { border-left-color: #6c757d; }
 .prose details.details-secondary summary::before { border-left-color: #6c757d; }
 .prose details.details-secondary summary:hover { color: #6c757d !important; }
@@ -233,7 +247,6 @@ html.dark .prose details.details-secondary { border-left-color: #8b949e; }
 html.dark .prose details.details-secondary summary::before { border-left-color: #8b949e; }
 html.dark .prose details.details-secondary summary:hover { color: #8b949e !important; }
 
-/* 成功/绿色 (Success) */
 .prose details.details-success { border-left-color: #198754; }
 .prose details.details-success summary::before { border-left-color: #198754; }
 .prose details.details-success summary:hover { color: #198754 !important; }
@@ -241,7 +254,6 @@ html.dark .prose details.details-success { border-left-color: #3fb950; }
 html.dark .prose details.details-success summary::before { border-left-color: #3fb950; }
 html.dark .prose details.details-success summary:hover { color: #3fb950 !important; }
 
-/* 错误/红色 (Danger) */
 .prose details.details-danger { border-left-color: #dc3545; }
 .prose details.details-danger summary::before { border-left-color: #dc3545; }
 .prose details.details-danger summary:hover { color: #dc3545 !important; }
@@ -249,7 +261,6 @@ html.dark .prose details.details-danger { border-left-color: #f85149; }
 html.dark .prose details.details-danger summary::before { border-left-color: #f85149; }
 html.dark .prose details.details-danger summary:hover { color: #f85149 !important; }
 
-/* 警告/黄色 (Warning) */
 .prose details.details-warning { border-left-color: #ffc107; }
 .prose details.details-warning summary::before { border-left-color: #ffc107; }
 .prose details.details-warning summary:hover { color: #ffc107 !important; }
@@ -257,7 +268,6 @@ html.dark .prose details.details-warning { border-left-color: #d29922; }
 html.dark .prose details.details-warning summary::before { border-left-color: #d29922; }
 html.dark .prose details.details-warning summary:hover { color: #d29922 !important; }
 
-/* 信息/青色 (Info) */
 .prose details.details-info { border-left-color: #0dcaf0; }
 .prose details.details-info summary::before { border-left-color: #0dcaf0; }
 .prose details.details-info summary:hover { color: #0dcaf0 !important; }
@@ -265,7 +275,6 @@ html.dark .prose details.details-info { border-left-color: #58a6ff; }
 html.dark .prose details.details-info summary::before { border-left-color: #58a6ff; }
 html.dark .prose details.details-info summary:hover { color: #58a6ff !important; }
 
-/* 浅色/白色 (Light) */
 .prose details.details-light { border-left-color: #adb5bd; }
 .prose details.details-light summary::before { border-left-color: #adb5bd; }
 .prose details.details-light summary:hover { color: #495057 !important; }
@@ -273,7 +282,6 @@ html.dark .prose details.details-light { border-left-color: #c9d1d9; }
 html.dark .prose details.details-light summary::before { border-left-color: #c9d1d9; }
 html.dark .prose details.details-light summary:hover { color: #c9d1d9 !important; }
 
-/* 深色/黑色 (Dark) */
 .prose details.details-dark { border-left-color: #212529; }
 .prose details.details-dark summary::before { border-left-color: #212529; }
 .prose details.details-dark summary:hover { color: #212529 !important; }
@@ -281,7 +289,6 @@ html.dark .prose details.details-dark { border-left-color: #8b949e; }
 html.dark .prose details.details-dark summary::before { border-left-color: #8b949e; }
 html.dark .prose details.details-dark summary:hover { color: #8b949e !important; }
 
-/* 紫色扩展 (Purple) */
 .prose details.details-purple { border-left-color: #8b5cf6; }
 .prose details.details-purple summary::before { border-left-color: #8b5cf6; }
 .prose details.details-purple summary:hover { color: #8b5cf6 !important; }
@@ -289,7 +296,6 @@ html.dark .prose details.details-purple { border-left-color: #a78bfa; }
 html.dark .prose details.details-purple summary::before { border-left-color: #a78bfa; }
 html.dark .prose details.details-purple summary:hover { color: #a78bfa !important; }
 
-/* 粉色扩展 (Pink) */
 .prose details.details-pink { border-left-color: #ec4899; }
 .prose details.details-pink summary::before { border-left-color: #ec4899; }
 .prose details.details-pink summary:hover { color: #ec4899 !important; }
@@ -297,7 +303,6 @@ html.dark .prose details.details-pink { border-left-color: #f472b6; }
 html.dark .prose details.details-pink summary::before { border-left-color: #f472b6; }
 html.dark .prose details.details-pink summary:hover { color: #f472b6 !important; }
 
-/* 橙色扩展 (Orange) */
 .prose details.details-orange { border-left-color: #fd7e14; }
 .prose details.details-orange summary::before { border-left-color: #fd7e14; }
 .prose details.details-orange summary:hover { color: #fd7e14 !important; }
@@ -354,4 +359,4 @@ html.dark .prose td {
 }
 .prose tbody tr:hover {
   @apply bg-[#eaeef2] dark:bg-[#30363d];
-   }
+}
