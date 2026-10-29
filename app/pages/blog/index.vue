@@ -49,8 +49,8 @@ const prevPage = () => {
   <!-- 1. 加上 flex flex-col，让卡片变成弹性上下布局 -->
   <div class="card-glass flex flex-col">
     
-    <!-- 👇 协调的虚线分割线：不加负边距，宽度自然受限于卡片内边距 -->
-    <div class="pb-4 mb-6 border-b divider-dashed">
+    <!-- 👇 优化后的标题：w-fit 让虚线只有文字那么宽，pb-2 让线贴近文字 -->
+    <div class="w-fit pb-2 mb-6 border-b divider-dashed">
       <h1 class="text-3xl font-bold text-theme-title dark:text-dark-title">博客文章</h1>
     </div>
 
@@ -63,12 +63,12 @@ const prevPage = () => {
       
       <!-- 文章列表区域 -->
       <div class="space-y-0">
-        <!-- 斑马线：第一行有背景色，后续交替 -->
+        <!-- 👇 优化后的列表：去掉负边距，加上 rounded-lg，斑马线和悬停都有圆角收缩感 -->
         <NuxtLink 
           v-for="(post, index) in paginatedPosts" 
           :key="post.path" 
           :to="post.path"
-          class="group flex items-center justify-between py-4 px-4 -mx-4 border-b divider-dashed last:border-0 transition-colors rounded-sm hover:!bg-[#eaeef2] dark:hover:!bg-white/10"
+          class="group flex items-center justify-between py-4 px-4 border-b divider-dashed last:border-0 transition-colors rounded-lg hover:!bg-[#eaeef2] dark:hover:!bg-white/10"
           :class="index % 2 === 0 ? 'bg-[#f6f8fa] dark:bg-white/5' : 'bg-transparent'"
         >
           <span class="text-base font-medium text-[#0969da] dark:text-dark-link group-hover:underline decoration-1 underline-offset-4">
